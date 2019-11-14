@@ -1,4 +1,4 @@
-package com.example.easy;
+package com.example.easy.domainTests;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

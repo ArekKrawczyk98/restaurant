@@ -1,6 +1,5 @@
 package com.example.easy.api;
 
-import com.example.easy.api.bill.BillMapper;
 import com.example.easy.api.bill.BillRepositoryImpl;
 import com.example.easy.api.bill.BillRepositorySpringData;
 import com.example.easy.api.invoice.InvoiceRepostioryImpl;
@@ -42,7 +41,7 @@ public class RestaurantConfiguration {
 
     @Bean
     BillRepository billRepository(BillRepositorySpringData billRepositorySpringData){
-        return new BillRepositoryImpl(billRepositorySpringData,new BillMapper());
+        return new BillRepositoryImpl(billRepositorySpringData);
     }
 
     @Bean

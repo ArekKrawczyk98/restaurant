@@ -1,4 +1,4 @@
-package com.example.easy;
+package com.example.easy.domainTests;
 
 import com.example.easy.domain.invoice.Invoice;
 import com.example.easy.domain.invoice.InvoiceRepository;

@@ -1,4 +1,4 @@
-package com.example.easy;
+package com.example.easy.domainTests;
 
 import com.example.easy.api.bill.BillEntity;
 import com.example.easy.api.bill.BillMapper;
@@ -10,12 +10,11 @@ import java.util.Date;
 
 public class MappingTest {
 
-    private final BillMapper billMapper = new BillMapper();
     @Test
     public void shouldMapEntityToDomain(){
         BillEntity billEntity = new BillEntity(1,new Date(),50.0);
 
-        Bill domain = billMapper.mapFromEntityToDomainModel(billEntity);
+        Bill domain = BillMapper.mapFromEntityToDomainModel(billEntity);
 
         Assert.assertEquals(billEntity.getMoneyPaid(),domain.getToPay());
 
@@ -24,7 +23,7 @@ public class MappingTest {
     public void shouldMapEntityToDomainAndTableShouldntExist(){
         BillEntity billEntity = new BillEntity(1,new Date(),50.0);
 
-        Bill domain = billMapper.mapFromEntityToDomainModel(billEntity);
+        Bill domain = BillMapper.mapFromEntityToDomainModel(billEntity);
 
         Assert.assertNull(domain.getTable());
 

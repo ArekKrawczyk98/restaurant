@@ -1,4 +1,4 @@
-package com.example.easy;
+package com.example.easy.domainTests;
 
 import com.example.easy.domain.order.Order;
 import com.example.easy.domain.order.OrderRepository;

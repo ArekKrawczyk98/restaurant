@@ -8,4 +8,8 @@ public interface BillRepository {
     Bill load(int id);
     void add(Bill bill);
     List<Bill> loadAll();
+    void delete(int id);
+    void update(int id,Bill bill);
+
+    void deleteAll();
 }

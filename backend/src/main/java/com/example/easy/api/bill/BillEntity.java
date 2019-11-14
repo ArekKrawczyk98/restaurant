@@ -17,9 +17,10 @@ import java.util.Date;
 public class BillEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name ="payday")
     private Date date;
+    @Column(name = "money_paid")
     private Double moneyPaid;
 }

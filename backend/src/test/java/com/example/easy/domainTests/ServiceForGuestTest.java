@@ -1,4 +1,4 @@
-package com.example.easy;
+package com.example.easy.domainTests;
 
 import com.example.easy.domain.*;
 import com.example.easy.domain.guest.GuestBill;
@@ -157,6 +157,59 @@ public class ServiceForGuestTest {
         restaurantService.addOrder(newOrder, guestBill);
 
         Assert.assertEquals(kitchenProducts,kitchenService.getKitchenOrders());
+
+
+
+    }
+
+    @Test
+    public void shouldAddBill(){
+
+        final GuestBill bill = GuestBill.from("Dr Sara",0.0,new Date(),new Table("1"), GuestPosition.GUEST);
+
+        billRepository.add(bill);
+
+        String tableNumber = billRepository.load(1).getTable().getNumber();
+
+        Assert.assertEquals("1",tableNumber);
+    }
+
+
+
+    @Test
+    public void shouldDeleteBill(){
+        Table table = new Table("1");
+
+        final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
+
+        restaurantService.addBill(guestBill);
+
+        billRepository.delete(1);
+
+        Assert.assertNull(billRepository.load(1));
+
+    }
+
+    @Test
+    public void shouldUpdateBill(){
+
+        Table table = new Table("2");
+
+        final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
+
+        restaurantService.addBill(guestBill);
+
+
+        final GuestBill guestBillUpdated = GuestBill.from("Mr Adams",15.0,new Date(),new Table("2"), GuestPosition.OWNER);
+
+
+        restaurantService.updateBill(2,guestBillUpdated);
+
+
+        Bill bill = billRepository.load(2);
+
+
+        Assert.assertEquals(new Double(15.0),bill.getToPay());
 
 
 

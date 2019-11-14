@@ -12,7 +12,6 @@ import java.util.Optional;
 public class BillRepositoryImpl implements BillRepository{
 
     private final BillRepositorySpringData billRepositorySpringData;
-    private final BillMapper mapper;
 
     @Override
     public Bill load(int id) {
@@ -20,7 +19,7 @@ public class BillRepositoryImpl implements BillRepository{
         Optional<BillEntity> billEntity = billRepositorySpringData.findById(id);
         if (billEntity.isPresent()){
 
-            return mapper.mapFromEntityToDomainModel(billEntity.get());
+            return BillMapper.mapFromEntityToDomainModel(billEntity.get());
 
 
         }
@@ -33,9 +32,16 @@ public class BillRepositoryImpl implements BillRepository{
     @Override
     public void add(Bill bill) {
 
-        BillEntity billEntity = mapper.mapFromDomainModelToEntity(bill);
+        BillEntity billEntity = BillMapper.mapFromDomainModelToEntity(bill);
 
-        billRepositorySpringData.save(billEntity);
+        try{
+            billRepositorySpringData.save(billEntity);
+
+
+        }
+        catch (Exception e){
+            System.err.println(e);
+        }
 
     }
 
@@ -46,10 +52,28 @@ public class BillRepositoryImpl implements BillRepository{
 
         for (BillEntity billEntity : billEntities) {
 
-            bills.add(mapper.mapFromEntityToDomainModel(billEntity));
+            bills.add(BillMapper.mapFromEntityToDomainModel(billEntity));
 
 
         }
         return bills;
+    }
+
+    @Override
+    public void delete(int id) {
+        billRepositorySpringData.deleteById(id);
+    }
+
+    @Override
+    public void update(int id, Bill bill) {
+
+        add(bill);
+
+    }
+
+    @Override
+    public void deleteAll() {
+        billRepositorySpringData.deleteAll();
+
     }
 }

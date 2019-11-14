@@ -91,4 +91,20 @@ public class RestaurantService {
         Bill bill = billRepository.load(id);
         return bill;
     }
+
+    public Integer updateBill(int id, Bill bill) {
+
+        billRepository.update(id,bill);
+
+        return Integer.valueOf(bill.getTable().getNumber());
+
+    }
+
+    public void removeBill(int id) {
+        billRepository.delete(id);
+    }
+
+    public void removeAllBills() {
+        billRepository.deleteAll();
+    }
 }
