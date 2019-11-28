@@ -3,6 +3,8 @@ package com.example.easy.api.product;
 import com.example.easy.domain.product.Product;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -40,4 +42,15 @@ public class ProductRepository {
 
     }
 
+    public List<Product> getAll() {
+        List<ProductEntity> productEntities = productSpringData.findAll();
+        List<Product> productList = new ArrayList<>();
+
+        for (ProductEntity x: productEntities) {
+            productList.add(ProductMapper.fromEntityToDomainModel(x));
+
+        }
+
+        return productList;
+    }
 }

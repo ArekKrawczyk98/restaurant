@@ -1,22 +1,20 @@
 package com.example.easy.api.logging;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("start")
 @RestController
 public class LoggingController {
 
     @PostMapping
-    public String canPass(@RequestBody Logging logging){
+    public Response canPass(@RequestBody Logging logging){
 
         if (logging.canPass()){
-            return "pass";
+            return new Response(true);
         }
         else {
-            return "cant pass";
+            return new Response(false);
         }
 
     }

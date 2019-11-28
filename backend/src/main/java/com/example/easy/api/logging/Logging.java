@@ -8,6 +8,6 @@ public class Logging {
     private final String password;
 
     public boolean canPass(){
-        return this.login.equals("bar") || this.login.equals("kitchen") && this.password.equals("pass123");
+        return (this.login.equals("bar") || this.login.equals("kitchen")) && this.password.equals("pass123");
     }
 }

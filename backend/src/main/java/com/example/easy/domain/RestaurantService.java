@@ -7,9 +7,11 @@ import com.example.easy.domain.kitchen.KitchenService;
 import com.example.easy.domain.order.Order;
 import com.example.easy.domain.order.OrderRepository;
 import com.example.easy.domain.order.OrderStatus;
+import com.example.easy.domain.product.Product;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -27,8 +29,8 @@ public class RestaurantService {
 
 
 
-    //Getting the rest
-    public Double payTheBill(Bill bill, Double moneyGiven){
+
+    public Double payTheBillAndGetRest(Bill bill, Double moneyGiven){
 
         Double moneyNeeded  = bill.billToBePaid();
 
@@ -72,6 +74,11 @@ public class RestaurantService {
 
         order.setStatus(OrderStatus.REMOVED);
 
+        List<Product> list = order.getList();
+
+        barService.getBarOrders().removeAll(list);
+        kitchenService.getKitchenOrders().removeAll(list);
+
         orderRepository.update(id,order);
 
     }
@@ -88,8 +95,7 @@ public class RestaurantService {
 
 
     public Bill getBillById(int id) {
-        Bill bill = billRepository.load(id);
-        return bill;
+        return billRepository.load(id);
     }
 
     public Integer updateBill(int id, Bill bill) {
@@ -107,4 +113,5 @@ public class RestaurantService {
     public void removeAllBills() {
         billRepository.deleteAll();
     }
+
 }

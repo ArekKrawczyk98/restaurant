@@ -54,6 +54,11 @@ public class BillController {
         restaurantService.removeAllBills();
     }
 
+    @GetMapping("/payBill")
+    public Double payAndGetRestFromBill(Bill bill,Double money){
+        return restaurantService.payTheBillAndGetRest(bill,money);
+    }
+
 
 
 

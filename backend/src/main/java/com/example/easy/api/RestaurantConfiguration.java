@@ -6,6 +6,8 @@ import com.example.easy.api.invoice.InvoiceRepostioryImpl;
 import com.example.easy.api.invoice.InvoiceRepostiorySpringData;
 import com.example.easy.api.order.OrderRepositoryImpl;
 import com.example.easy.api.order.OrderRepositorySpringData;
+import com.example.easy.api.product.ProductRepository;
+import com.example.easy.api.product.ProductSpringData;
 import com.example.easy.domain.BarService;
 import com.example.easy.domain.RestaurantService;
 import com.example.easy.domain.Zmiana;
@@ -65,6 +67,11 @@ public class RestaurantConfiguration {
     @Bean
     Zmiana zmiana(){
         return new Zmiana(new Date(),(double)0);
+    }
+
+    @Bean
+    ProductRepository productRepository(ProductSpringData productSpringData){
+        return new ProductRepository(productSpringData);
     }
 
 

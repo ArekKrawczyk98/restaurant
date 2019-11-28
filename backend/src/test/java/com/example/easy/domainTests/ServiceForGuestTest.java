@@ -53,7 +53,7 @@ public class ServiceForGuestTest {
 
         restaurantService.addOrder(newOrder, guestBill);
 
-        Double rest=restaurantService.payTheBill(guestBill,40.0);
+        Double rest=restaurantService.payTheBillAndGetRest(guestBill,40.0);
 
 
         Assert.assertEquals(rest,new Double(15.0));
@@ -72,7 +72,7 @@ public class ServiceForGuestTest {
 
         restaurantService.addOrder(newOrder, guestBill);
 
-        Double rest=restaurantService.payTheBill(guestBill,0.25);
+        Double rest=restaurantService.payTheBillAndGetRest(guestBill,0.25);
 
 
         Assert.assertEquals(rest,new Double(0));
@@ -92,7 +92,7 @@ public class ServiceForGuestTest {
 
         restaurantService.addOrder(newOrder, guestBill);
 
-        Double rest=restaurantService.payTheBill(guestBill,15.0);
+        Double rest=restaurantService.payTheBillAndGetRest(guestBill,15.0);
 
 
         Assert.assertEquals(rest,new Double(2.5));
