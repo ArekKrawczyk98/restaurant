@@ -1,0 +1,10 @@
+<app-header></app-header>
+<a routerLink="/welcome">Home</a><br>
+<button (click)="showAllProducts()">Show all products</button>
+
+<p>Products:</p>
+<ul *ngIf="products!=null">
+  <li  *ngFor="let product of products">
+    Name: {{product.name}}  Category:{{product.category}}  Cost:{{product.cost}} $
+  </li>
+</ul>
