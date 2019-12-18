@@ -20,7 +20,7 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @OneToMany
+    @ElementCollection
     private List<ProductEntity> productList;
 
 }

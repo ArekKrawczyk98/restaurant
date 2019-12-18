@@ -41,7 +41,6 @@ export class LoggingComponent implements OnInit {
         alert('cant pass');
       }
 
-      console.log(this.canPass);
     } );
 
 

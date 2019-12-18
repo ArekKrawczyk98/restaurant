@@ -9,10 +9,10 @@ import java.util.List;
 
 public class BillRepositoryInMemoryImpl implements BillRepository {
 
-    private final HashMap<String, Bill> database = new HashMap<>();
+    private final HashMap<Integer, Bill> database = new HashMap<>();
     @Override
     public Bill load(int id) {
-        return database.get(String.valueOf(id));
+        return database.get(id);
     }
 
     @Override
@@ -32,14 +32,14 @@ public class BillRepositoryInMemoryImpl implements BillRepository {
     @Override
     public void delete(int id) {
 
-        database.remove(Integer.toString(id));
+        database.remove(id);
 
     }
 
     @Override
     public void update(int id, Bill bill) {
 
-        database.replace(String.valueOf(id),bill);
+        database.replace(id,bill);
 
     }
 

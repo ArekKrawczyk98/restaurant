@@ -4,6 +4,7 @@ import com.example.easy.domain.invoice.Invoice;
 import com.example.easy.domain.invoice.InvoiceRepository;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -28,5 +29,10 @@ public class InvoiceRepostioryImpl implements InvoiceRepository {
 
         throw new IllegalStateException("Doesnt exist");
 
+    }
+
+    @Override
+    public List<Invoice> getAllFromCurrentDate() {
+        return null;
     }
 }

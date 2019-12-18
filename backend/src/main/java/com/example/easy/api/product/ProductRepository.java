@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @AllArgsConstructor
 public class ProductRepository {
-    ProductSpringData productSpringData;
+   private ProductSpringData productSpringData;
 
     public ProductEntity loadById(int id){
         Optional<ProductEntity> optional =productSpringData.findById(id);
@@ -21,8 +21,16 @@ public class ProductRepository {
     }
 
 
-    public void delete(int id){
-        productSpringData.deleteById(id);
+    public String delete(String nameToBeDeleted){
+        ProductEntity productEntity = productSpringData.findByName(nameToBeDeleted);
+      if (productEntity != null){
+          productSpringData.delete(productEntity);
+          return productEntity.getName();
+
+      }
+      else {
+          return null;
+      }
     }
 
     public void add(Product product){
@@ -43,7 +51,7 @@ public class ProductRepository {
     }
 
     public List<Product> getAll() {
-        List<ProductEntity> productEntities = productSpringData.findAll();
+        List<ProductEntity> productEntities = productSpringData.findByOrderByIdAsc();
         List<Product> productList = new ArrayList<>();
 
         for (ProductEntity x: productEntities) {
@@ -52,5 +60,19 @@ public class ProductRepository {
         }
 
         return productList;
+    }
+    public ProductEntity getByName(String name){
+
+
+        return productSpringData.findByName(name);
+    }
+
+    public Product getByNameDomainModelFromDB(String name){
+        return ProductMapper.fromEntityToDomainModel(productSpringData.findByName(name));
+    }
+
+
+    public void deleteById(Integer id) {
+        productSpringData.deleteById(id);
     }
 }

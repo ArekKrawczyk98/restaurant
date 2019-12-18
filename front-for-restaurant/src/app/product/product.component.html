@@ -1,10 +1,41 @@
 <app-header></app-header>
-<a routerLink="/welcome">Home</a><br>
-<button (click)="showAllProducts()">Show all products</button>
+<h1>Products</h1>
+<button (click)="showAllProducts()">Show all products</button>    <button (click)="showAddForm()">Add product</button>
 
-<p>Products:</p>
-<ul *ngIf="products!=null">
-  <li  *ngFor="let product of products">
-    Name: {{product.name}}  Category:{{product.category}}  Cost:{{product.cost}} $
-  </li>
-</ul>
+
+<p></p>
+<table class="table-bordered" *ngIf="products!=null">
+<thead>
+ <tr>
+   <th scope="col">#</th>
+   <td>Name</td>
+   <td>Cost</td>
+
+ </tr>
+</thead>
+<tbody>
+ <tr *ngFor="let product of products">
+   <td>{{products.indexOf(product)+1}}</td>
+   <td>{{product.name}}</td>
+   <td>{{product.cost}} $</td>
+   <button (click)=showUpdateLabel(product)>Update</button>
+   <button (click)="deleteProduct(product.name)">Delete</button>
+ </tr>
+</tbody>
+</table>
+<br>
+<form *ngIf="updateClicked" #updateForm="ngForm" (ngSubmit)="updateCost(updateForm)" >
+  <label for="updatedCost" >Updated cost:</label>
+  <input type="text" name="updatedCost" id="updatedCost" ngModel>
+  <button value="submit">Update cost</button>
+</form>
+
+
+
+<form *ngIf="addClicked" #addForm="ngForm" (ngSubmit)="addProduct(addForm)" >
+  <label for="name" >Name:</label>
+  <input type="text" name="name" id="name" ngModel>
+  <label for="cost" >Cost:</label>
+  <input type="text" name="cost" id="cost" ngModel>
+  <button value="submit">Add product</button>
+</form>

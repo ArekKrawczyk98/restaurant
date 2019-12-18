@@ -1,0 +1,28 @@
+<app-header></app-header>
+<h1>Bills</h1>
+
+
+<table class="table-bordered" *ngIf="bills!=null">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <td>Money needed to pay</td>
+    <td>Table</td>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let bill of bills">
+    <td>{{bills.indexOf(bill)+1}}</td>
+    <td>{{bill.moneyPaid}}$</td>
+    <td>{{bill.table}}</td>
+    <button (click)=payBill(bill)>Pay bill</button>
+    <button (click)="deleteBill(bill)">Delete</button>
+    <button>Add order</button>
+  </tr>
+  </tbody>
+</table>
+
+<button (click)="addBill()">Add bill</button>
+
+

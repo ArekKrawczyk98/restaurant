@@ -1,19 +1,18 @@
 package com.example.easy.domain;
 
 import com.example.easy.domain.order.Order;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Value;
+import lombok.experimental.NonFinal;
 
 import java.util.Date;
-@AllArgsConstructor
-@RequiredArgsConstructor
+
+@Value
+@NonFinal
 public class Bill {
-    @Getter
+
+    @NonFinal
     private Double toPay;
-    @Getter
     private final Date date;
-    @Getter
     private final Table table;
 
 

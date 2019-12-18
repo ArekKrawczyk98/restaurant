@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("bills")
+@RequestMapping("/bills")
 @CrossOrigin(origins = "http://localhost:4200")
 public class BillController {
 
@@ -34,17 +34,20 @@ public class BillController {
     }
 
     @PostMapping
-    public void addBill(@RequestBody BillEntity bill){
-        restaurantService.addBill(BillMapper.mapFromEntityToDomainModel(bill));
+    public BillEntity addBill(@RequestBody Bill bill){
+        System.out.println(bill);
+        restaurantService.addBill(bill);
+
+        return BillMapper.mapFromDomainModelToEntity(billRepository.load(bill.getTable().getNumber()));
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public Integer updateBill(@PathVariable int id,Bill bill){
 
        return restaurantService.updateBill(id,bill);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteBill(@PathVariable int id){
         restaurantService.removeBill(id);
     }

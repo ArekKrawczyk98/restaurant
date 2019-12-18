@@ -29,7 +29,7 @@ public class ServiceForGuestTest {
     @Test
     public void shouldAddOrder(){
 
-        Table table = new Table("1");
+        Table table = new Table(1);
 
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
@@ -44,7 +44,7 @@ public class ServiceForGuestTest {
     }
     @Test
     public void shouldPayTheBillAsGuest(){
-        Table table = new Table("1");
+        Table table = new Table(1);
 
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
@@ -63,7 +63,7 @@ public class ServiceForGuestTest {
 
     @Test
     public void shouldPayTheBillAsOwner(){
-        Table table = new Table("1");
+        Table table = new Table(1);
 
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.OWNER);
 
@@ -83,7 +83,7 @@ public class ServiceForGuestTest {
     @Test
     public void shouldPayTheBillAsEmployee(){
 
-        Table table = new Table("1");
+        Table table = new Table(1);
 
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.EMPLOYEE);
 
@@ -101,7 +101,7 @@ public class ServiceForGuestTest {
 
     @Test
     public void shouldRemoveOrderWhenAlreadyAdded(){
-        Table table = new Table("1");
+        Table table = new Table(1);
 
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
@@ -126,7 +126,7 @@ public class ServiceForGuestTest {
     }
     @Test
     public void shouldSendOrdersToBar(){
-        Table table = new Table("1");
+        Table table = new Table(1);
 
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
@@ -145,7 +145,7 @@ public class ServiceForGuestTest {
     }
     @Test
     public void shouldSendOrdersToKitchen(){
-        Table table = new Table("1");
+        Table table = new Table(1);
 
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
@@ -165,20 +165,20 @@ public class ServiceForGuestTest {
     @Test
     public void shouldAddBill(){
 
-        final GuestBill bill = GuestBill.from("Dr Sara",0.0,new Date(),new Table("1"), GuestPosition.GUEST);
+        final GuestBill bill = GuestBill.from("Dr Sara",0.0,new Date(),new Table(1), GuestPosition.GUEST);
 
         billRepository.add(bill);
 
-        String tableNumber = billRepository.load(1).getTable().getNumber();
+        Integer tableNumber = billRepository.load(1).getTable().getNumber();
 
-        Assert.assertEquals("1",tableNumber);
+        Assert.assertEquals(Integer.valueOf(1),tableNumber);
     }
 
 
 
     @Test
     public void shouldDeleteBill(){
-        Table table = new Table("1");
+        Table table = new Table(1);
 
         final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
@@ -193,14 +193,14 @@ public class ServiceForGuestTest {
     @Test
     public void shouldUpdateBill(){
 
-        Table table = new Table("2");
+        Table table = new Table(2);
 
         final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
         restaurantService.addBill(guestBill);
 
 
-        final GuestBill guestBillUpdated = GuestBill.from("Mr Adams",15.0,new Date(),new Table("2"), GuestPosition.OWNER);
+        final GuestBill guestBillUpdated = GuestBill.from("Mr Adams",15.0,new Date(),new Table(2), GuestPosition.OWNER);
 
 
         restaurantService.updateBill(2,guestBillUpdated);

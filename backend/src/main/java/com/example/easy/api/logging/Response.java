@@ -4,5 +4,5 @@ import lombok.Value;
 
 @Value
 public class Response {
-    private Boolean  value;
+    private Boolean value;
 }
