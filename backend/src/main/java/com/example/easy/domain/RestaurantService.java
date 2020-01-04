@@ -95,14 +95,14 @@ public class RestaurantService {
 
 
     public Bill getBillById(int id) {
-        return billRepository.load(id);
+        return billRepository.loadById(id);
     }
 
     public Integer updateBill(int id, Bill bill) {
 
         billRepository.update(id,bill);
 
-        return Integer.valueOf(bill.getTable().getNumber());
+        return bill.getTable().getNumber();
 
     }
 

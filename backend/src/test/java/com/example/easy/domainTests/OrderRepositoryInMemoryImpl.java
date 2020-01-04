@@ -4,6 +4,7 @@ import com.example.easy.domain.order.Order;
 import com.example.easy.domain.order.OrderRepository;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class OrderRepositoryInMemoryImpl implements OrderRepository {
 
@@ -31,5 +32,10 @@ public class OrderRepositoryInMemoryImpl implements OrderRepository {
     public void update(String idToBeReplaced,Order order) {
         database.replace(idToBeReplaced,order);
 
+    }
+
+    @Override
+    public List<Order> loadAll() {
+        return (List<Order>) database.values();
     }
 }

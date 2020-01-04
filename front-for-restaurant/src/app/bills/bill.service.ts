@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Bill} from './bill';
+import {BillToBePaid} from './billToBePaid';
 
 @Injectable()
 export class BillService {
 
   private url = 'http://localhost:8080/bills';
-  private urlToPay = 'http://localhost:8080/bills/pay';
+  private urlToPay = 'http://localhost:8080/bills/payBill';
 
   constructor(private httpService: HttpClient) {}
 
@@ -15,13 +16,12 @@ export class BillService {
    return this.httpService.post(this.url, bill);
   }
 
-  payBill(bill: Bill) {
+  payBill(bill: BillToBePaid) {
     return this.httpService.post(this.urlToPay, bill);
-
   }
 
   delete(bill: Bill) {
-    const urlForDelete = this.url + '/' +  bill.id;
+    const urlForDelete = this.url + '/' +  bill.table;
 
     return this.httpService.delete(urlForDelete);
   }

@@ -53,5 +53,10 @@ public class InvoiceRepositoryInMemoryImpl implements InvoiceRepository {
 
     }
 
+    @Override
+    public List<Invoice> findAll() {
+        return (List<Invoice>) database.values();
+    }
+
 
 }

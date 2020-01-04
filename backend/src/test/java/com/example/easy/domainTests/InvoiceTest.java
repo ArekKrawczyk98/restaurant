@@ -58,7 +58,7 @@ public class InvoiceTest {
 
         List<Invoice> listFromRepo = invoiceRepository.getAllFromCurrentDate();
 
-        Boolean allContains = Boolean.FALSE;
+        boolean allContains = Boolean.FALSE;
 
         for (Invoice x:listFromRepo) {
              allContains=invoiceListFromCurrentDay.contains(x);
@@ -78,6 +78,8 @@ public class InvoiceTest {
 
         Assert.assertThat(invoice.getDate(),instanceOf(Date.class));
     }
+
+
 
 
 

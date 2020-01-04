@@ -1,6 +1,7 @@
 package com.example.easy.api.bill;
 
 import com.example.easy.domain.Bill;
+import com.example.easy.domain.Table;
 import com.example.easy.domain.guest.BillRepository;
 import lombok.AllArgsConstructor;
 
@@ -14,7 +15,7 @@ public class BillRepositoryImpl implements BillRepository{
     private final BillRepositorySpringData billRepositorySpringData;
 
     @Override
-    public Bill load(int id) {
+    public Bill loadById(int id) {
 
         Optional<BillEntity> billEntity = billRepositorySpringData.findById(id);
         if (billEntity.isPresent()){
@@ -40,7 +41,7 @@ public class BillRepositoryImpl implements BillRepository{
 
         }
         catch (Exception e){
-            System.err.println(e);
+            System.err.println();
         }
 
     }
@@ -66,10 +67,14 @@ public class BillRepositoryImpl implements BillRepository{
 
     @Override
     public void update(int id, Bill bill) {
-
         add(bill);
-
     }
+
+    @Override
+    public Integer getIdByTableNumber(Table table) {
+      return  billRepositorySpringData.findIdByTableNumber(table.getNumber());
+    }
+
 
     @Override
     public void deleteAll() {

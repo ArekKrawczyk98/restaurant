@@ -4,11 +4,12 @@ import com.example.easy.domain.order.Order;
 import lombok.Value;
 import lombok.experimental.NonFinal;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Value
 @NonFinal
-public class Bill {
+public class Bill implements Serializable {
 
     @NonFinal
     private Double toPay;

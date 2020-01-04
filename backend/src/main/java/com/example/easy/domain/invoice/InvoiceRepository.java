@@ -6,4 +6,7 @@ public interface InvoiceRepository {
     void save(Invoice invoice);
     Invoice load(String id);
     List<Invoice> getAllFromCurrentDate();
+
+    List<Invoice> findAll();
+
 }

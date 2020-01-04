@@ -14,15 +14,73 @@
   <tbody>
   <tr *ngFor="let bill of bills">
     <td>{{bills.indexOf(bill)+1}}</td>
-    <td>{{bill.moneyPaid}}$</td>
+    <td>{{bill.toPay}}$</td>
     <td>{{bill.table}}</td>
-    <button (click)=payBill(bill)>Pay bill</button>
+    <button (click)=selectBill(bill)>Pay bill</button>
     <button (click)="deleteBill(bill)">Delete</button>
-    <button>Add order</button>
+    <button (click)="showProducts(bill)">Add order</button>
+    <button (click)="showOrdersForThisBill(bills.indexOf(bill)+1)">Show orders</button>
   </tr>
   </tbody>
 </table>
 
-<button (click)="addBill()">Add bill</button>
+<button (click)="showFormToAdd()">Add bill</button>
+<form *ngIf="addClicked"  #addForm="ngForm" (ngSubmit) = "addBill(addForm)">
+  <label for="table" >Table number:</label>
+  <input type="text" name="number" id="table" ngModel>
+  <button value="submit">Ok</button>
+</form>
+
+<br>
+<table class="table-bordered" *ngIf="products!=null">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <td>Name</td>
+    <td>Cost</td>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products">
+    <td>{{products.indexOf(product)+1}}</td>
+    <td>{{product.name}}</td>
+    <td>{{product.cost}} $</td>
+    <button (click)=choose(product)>Click</button>
+  </tr>
+  </tbody>
+</table>
+
+<div *ngIf="order!=null" id="order">
+  <br>
+  <table class="table-bordered" *ngIf="order!=null">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <td>Name</td>
+      <td>Cost</td>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of order.products">
+      <td>{{products.indexOf(product)+1}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.cost}} $</td>
+    </tr>
+    <tr>
+      <td>Total cost: {{order.totalCost()}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <button  (click)="sendOrder(order)">Send order</button>
+</div>
+
+<form *ngIf="showPayLabel" (ngSubmit)="payBill(billSelectedToBePaid,moneyGiven)">
+  <label for="money" >Money given:</label>
+  <input [(ngModel)]="moneyGiven" type="number" id="money" [ngModelOptions]="{standalone: true}">
+  <button value="submit">Pay</button>
+</form>
+
 
 

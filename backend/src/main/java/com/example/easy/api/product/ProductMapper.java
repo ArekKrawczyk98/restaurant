@@ -8,6 +8,9 @@ public class ProductMapper {
     public static Product fromEntityToDomainModel(ProductEntity productEntity){
         return new Product(productEntity.getName(),productEntity.getCost(),assignToCategory(productEntity.getName()));
     }
+    public static ProductEntity fromDomainModelToEntity(Product product){
+        return new ProductEntity(product.getName(),product.getCost());
+    }
 
     private static ProductCategory assignToCategory(String name) {
         if (containsIgnoreCase(name,"SOUP")){

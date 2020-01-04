@@ -1,6 +1,5 @@
 package com.example.easy.api.product;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -20,4 +18,9 @@ public class ProductEntity {
     private Integer id;
     private String name;
     private Double cost;
+
+    public ProductEntity(String name,Double cost){
+        this.name=name;
+        this.cost=cost;
+    }
 }

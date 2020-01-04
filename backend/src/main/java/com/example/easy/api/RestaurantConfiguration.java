@@ -2,8 +2,8 @@ package com.example.easy.api;
 
 import com.example.easy.api.bill.BillRepositoryImpl;
 import com.example.easy.api.bill.BillRepositorySpringData;
-import com.example.easy.api.invoice.InvoiceRepostioryImpl;
-import com.example.easy.api.invoice.InvoiceRepostiorySpringData;
+import com.example.easy.api.invoice.InvoiceRepositoryImpl;
+import com.example.easy.api.invoice.InvoiceRepositorySpringData;
 import com.example.easy.api.order.OrderRepositoryImpl;
 import com.example.easy.api.order.OrderRepositorySpringData;
 import com.example.easy.api.product.ProductRepository;
@@ -47,8 +47,8 @@ public class RestaurantConfiguration {
     }
 
     @Bean
-    InvoiceRepository invoiceRepository(InvoiceRepostiorySpringData invoiceRepostiorySpringData){
-        return new InvoiceRepostioryImpl(invoiceRepostiorySpringData);
+    InvoiceRepository invoiceRepository(InvoiceRepositorySpringData invoiceRepostiorySpringData){
+        return new InvoiceRepositoryImpl(invoiceRepostiorySpringData);
     }
     @Bean
     OrderRepository orderRepository(OrderRepositorySpringData orderRepositorySpringData){

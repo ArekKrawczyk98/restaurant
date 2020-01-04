@@ -53,8 +53,6 @@ public class ProductController {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
     }
+
 }

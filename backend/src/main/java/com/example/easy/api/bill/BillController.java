@@ -2,6 +2,7 @@ package com.example.easy.api.bill;
 
 import com.example.easy.domain.Bill;
 import com.example.easy.domain.RestaurantService;
+import com.example.easy.domain.Table;
 import com.example.easy.domain.guest.BillRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,10 +36,9 @@ public class BillController {
 
     @PostMapping
     public BillEntity addBill(@RequestBody Bill bill){
-        System.out.println(bill);
         restaurantService.addBill(bill);
 
-        return BillMapper.mapFromDomainModelToEntity(billRepository.load(bill.getTable().getNumber()));
+        return BillMapper.mapFromDomainModelToEntity(billRepository.loadById(billRepository.getIdByTableNumber(bill.getTable())));
     }
 
     @PutMapping("/{id}")
@@ -47,9 +47,13 @@ public class BillController {
        return restaurantService.updateBill(id,bill);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteBill(@PathVariable int id){
+    @DeleteMapping("/{tableNumber}")
+    public void deleteBill(@PathVariable int tableNumber){
+
+        Integer id = billRepository.getIdByTableNumber(new Table(tableNumber));
+
         restaurantService.removeBill(id);
+
     }
 
     @DeleteMapping
@@ -57,9 +61,16 @@ public class BillController {
         restaurantService.removeAllBills();
     }
 
-    @GetMapping("/payBill")
-    public Double payAndGetRestFromBill(Bill bill,Double money){
-        return restaurantService.payTheBillAndGetRest(bill,money);
+    @PostMapping("/payBill")
+    public Double payAndGetRestFromBill(@RequestBody BillDTO billDTO){
+
+        System.out.println(billDTO.toString());
+
+
+       /* return restaurantService.payTheBillAndGetRest(billDTO.getBill(),
+                billDTO.getMoney());*/
+
+       return null;
     }
 
 

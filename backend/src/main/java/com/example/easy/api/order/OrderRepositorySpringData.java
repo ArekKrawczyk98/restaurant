@@ -1,7 +1,6 @@
 package com.example.easy.api.order;
 
-import com.example.easy.domain.order.Order;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderRepositorySpringData extends CrudRepository<Order,String> {
+public interface OrderRepositorySpringData extends JpaRepository<OrderEntity,String> {
 }

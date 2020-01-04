@@ -21,16 +21,13 @@ public class ProductRepository {
     }
 
 
-    public String delete(String nameToBeDeleted){
+    public void delete(String nameToBeDeleted){
         ProductEntity productEntity = productSpringData.findByName(nameToBeDeleted);
       if (productEntity != null){
           productSpringData.delete(productEntity);
-          return productEntity.getName();
 
       }
-      else {
-          return null;
-      }
+
     }
 
     public void add(Product product){

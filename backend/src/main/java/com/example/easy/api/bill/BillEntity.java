@@ -19,8 +19,9 @@ public class BillEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name ="payday")
     private Date date;
     @Column(name = "money_paid")
     private Double moneyPaid;
+    @Column(name = "table_number")
+    private Integer tableNumber;
 }

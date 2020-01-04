@@ -169,7 +169,7 @@ public class ServiceForGuestTest {
 
         billRepository.add(bill);
 
-        Integer tableNumber = billRepository.load(1).getTable().getNumber();
+        Integer tableNumber = billRepository.loadById(1).getTable().getNumber();
 
         Assert.assertEquals(Integer.valueOf(1),tableNumber);
     }
@@ -186,7 +186,7 @@ public class ServiceForGuestTest {
 
         billRepository.delete(1);
 
-        Assert.assertNull(billRepository.load(1));
+        Assert.assertNull(billRepository.loadById(1));
 
     }
 
@@ -206,10 +206,24 @@ public class ServiceForGuestTest {
         restaurantService.updateBill(2,guestBillUpdated);
 
 
-        Bill bill = billRepository.load(2);
+        Bill bill = billRepository.loadById(2);
 
 
         Assert.assertEquals(new Double(15.0),bill.getToPay());
+
+
+
+    }
+
+    @Test
+    public void shouldGetIdByTableNumber(){
+        final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),new Table(2), GuestPosition.GUEST);
+        restaurantService.addBill(guestBill);
+
+
+        final Integer index = billRepository.getIdByTableNumber(guestBill.getTable());
+
+        Assert.assertEquals(1,index.intValue());
 
 
 

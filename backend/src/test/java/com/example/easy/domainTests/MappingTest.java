@@ -12,7 +12,7 @@ public class MappingTest {
 
     @Test
     public void shouldMapEntityToDomain(){
-        BillEntity billEntity = new BillEntity(1,new Date(),50.0);
+        BillEntity billEntity = new BillEntity(1,new Date(),50.0,5);
 
         Bill domain = BillMapper.mapFromEntityToDomainModel(billEntity);
 
@@ -21,7 +21,7 @@ public class MappingTest {
     }
     @Test
     public void shouldMapEntityToDomainAndTableShouldntExist(){
-        BillEntity billEntity = new BillEntity(1,new Date(),50.0);
+        BillEntity billEntity = new BillEntity(1,new Date(),50.0,5);
 
         Bill domain = BillMapper.mapFromEntityToDomainModel(billEntity);
 
