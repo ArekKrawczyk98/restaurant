@@ -2,7 +2,6 @@ package com.example.easy.api.bill;
 
 import com.example.easy.domain.Bill;
 import com.example.easy.domain.RestaurantService;
-import com.example.easy.domain.Table;
 import com.example.easy.domain.guest.BillRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,10 +34,15 @@ public class BillController {
     }
 
     @PostMapping
-    public BillEntity addBill(@RequestBody Bill bill){
-        restaurantService.addBill(bill);
+    public Bill addBill(@RequestBody Bill bill){
+        if (restaurantService.addBill(bill)){
+            return billRepository.loadById(billRepository.getIdByTableNumber(bill.getTable()));
+        }
+        else
+        {
+            return null;
+        }
 
-        return BillMapper.mapFromDomainModelToEntity(billRepository.loadById(billRepository.getIdByTableNumber(bill.getTable())));
     }
 
     @PutMapping("/{id}")
@@ -50,7 +54,7 @@ public class BillController {
     @DeleteMapping("/{tableNumber}")
     public void deleteBill(@PathVariable int tableNumber){
 
-        Integer id = billRepository.getIdByTableNumber(new Table(tableNumber));
+        Integer id = billRepository.getIdByTableNumber(tableNumber);
 
         restaurantService.removeBill(id);
 

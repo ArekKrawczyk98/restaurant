@@ -14,7 +14,7 @@ public class Bill implements Serializable {
     @NonFinal
     private Double toPay;
     private final Date date;
-    private final Table table;
+    private final Integer table;
 
 
 

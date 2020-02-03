@@ -30,7 +30,7 @@ public class ServiceForTableTest {
     @Test
     public void shouldAddOrder(){
 
-        Table table = new Table(1);
+        Integer table = 1;
 
         TableBill tableBill = new TableBill(0.0,new Date(),table);
 
@@ -46,7 +46,7 @@ public class ServiceForTableTest {
 
     @Test
     public void shouldSplitTheBill(){
-        Table table = new Table(1);
+        Integer table = 1;
 
         TableBill tableBill = new TableBill(0.0,new Date(),table);
 

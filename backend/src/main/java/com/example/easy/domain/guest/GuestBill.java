@@ -2,7 +2,6 @@ package com.example.easy.domain.guest;
 
 import com.example.easy.domain.Bill;
 import com.example.easy.domain.RabatePolicyService;
-import com.example.easy.domain.Table;
 import lombok.Getter;
 
 import java.util.Date;
@@ -17,7 +16,7 @@ public class GuestBill extends Bill {
     @Getter
     private final GuestPosition guestPosition;
 
-    public GuestBill(Double toPay, Date date, Table table, String name, GuestPosition guestPosition) {
+    public GuestBill(Double toPay, Date date, Integer table, String name, GuestPosition guestPosition) {
         super(toPay, date, table);
         this.name = name;
         this.guestPosition = guestPosition;
@@ -25,7 +24,7 @@ public class GuestBill extends Bill {
 
 
 
-    public static GuestBill from(String name, Double toPay, Date date, Table table, GuestPosition guestposition){
+    public static GuestBill from(String name, Double toPay, Date date, Integer table, GuestPosition guestposition){
 
         return new GuestBill(toPay,date,table,name,guestposition);
     }

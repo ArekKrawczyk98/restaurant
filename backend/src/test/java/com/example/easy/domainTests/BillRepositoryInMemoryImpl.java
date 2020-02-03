@@ -1,7 +1,6 @@
 package com.example.easy.domainTests;
 
 import com.example.easy.domain.Bill;
-import com.example.easy.domain.Table;
 import com.example.easy.domain.guest.BillRepository;
 
 import java.util.*;
@@ -45,7 +44,7 @@ public class BillRepositoryInMemoryImpl implements BillRepository {
 
 
     @Override
-    public Integer getIdByTableNumber(Table table) {
+    public Integer getIdByTableNumber(Integer table) {
  /*       for (Bill bill : database.values()) {
             if (bill.getTable().equals(table)){
                 return table.getNumber();

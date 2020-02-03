@@ -32,19 +32,19 @@ export class BillsComponent implements OnInit {
   addBill(form: NgForm) {
     this.addClicked = false;
     this.billToBeAdded = {
-      date: new Date(), id: this.bills.length, toPay: 0, table: form.value
+      date: new Date(), id: this.bills.length, toPay: 0, table: Number(form.value.number)
     };
-    console.log(this.billToBeAdded);
     this.service.addBill(this.billToBeAdded).subscribe((data: Bill) => {
       this.billAdded = data;
-      this.bills.push(this.billAdded);
+      if (this.billAdded === null) {
+        alert('Cant add another bill to same table number');
+      } else {
+        this.bills.push(this.billAdded);
+      }
     });
   }
   payBill(bill: Bill, money: number) {
-    const billToBePaid = new BillToBePaid(bill, money);
-    billToBePaid.bill.table = Number(billToBePaid.bill.table);
-    console.log(billToBePaid);
-    this.service.payBill(billToBePaid).subscribe();
+    this.service.payBill( new BillToBePaid(bill, money)).subscribe();
   }
 
   selectBill(bill: Bill) {
@@ -64,7 +64,7 @@ export class BillsComponent implements OnInit {
     this.service.getAllBills().subscribe((data: Bill[]) => {
       data.forEach((item, index) => {
         this.bills.push(item);
-        this.bills[index].table = item.table.number;
+        this.bills[index].table = item.table;
       });
     });
   }

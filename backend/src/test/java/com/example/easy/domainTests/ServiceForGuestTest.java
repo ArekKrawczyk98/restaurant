@@ -29,7 +29,7 @@ public class ServiceForGuestTest {
     @Test
     public void shouldAddOrder(){
 
-        Table table = new Table(1);
+        Integer table = 1;
 
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
@@ -44,7 +44,7 @@ public class ServiceForGuestTest {
     }
     @Test
     public void shouldPayTheBillAsGuest(){
-        Table table = new Table(1);
+        Integer table = 1;
 
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
@@ -63,8 +63,7 @@ public class ServiceForGuestTest {
 
     @Test
     public void shouldPayTheBillAsOwner(){
-        Table table = new Table(1);
-
+        Integer table = 1;
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.OWNER);
 
 
@@ -83,8 +82,7 @@ public class ServiceForGuestTest {
     @Test
     public void shouldPayTheBillAsEmployee(){
 
-        Table table = new Table(1);
-
+        Integer table = 1;
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.EMPLOYEE);
 
 
@@ -101,8 +99,7 @@ public class ServiceForGuestTest {
 
     @Test
     public void shouldRemoveOrderWhenAlreadyAdded(){
-        Table table = new Table(1);
-
+        Integer table = 1;
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
         final String orderId = UUID.randomUUID().toString();
@@ -126,8 +123,7 @@ public class ServiceForGuestTest {
     }
     @Test
     public void shouldSendOrdersToBar(){
-        Table table = new Table(1);
-
+        Integer table = 1;
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
 
@@ -145,8 +141,7 @@ public class ServiceForGuestTest {
     }
     @Test
     public void shouldSendOrdersToKitchen(){
-        Table table = new Table(1);
-
+        Integer table = 1;
         GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
 
@@ -165,11 +160,11 @@ public class ServiceForGuestTest {
     @Test
     public void shouldAddBill(){
 
-        final GuestBill bill = GuestBill.from("Dr Sara",0.0,new Date(),new Table(1), GuestPosition.GUEST);
+        final GuestBill bill = GuestBill.from("Dr Sara",0.0,new Date(),1, GuestPosition.GUEST);
 
         billRepository.add(bill);
 
-        Integer tableNumber = billRepository.loadById(1).getTable().getNumber();
+        Integer tableNumber = billRepository.loadById(1).getTable();
 
         Assert.assertEquals(Integer.valueOf(1),tableNumber);
     }
@@ -178,8 +173,7 @@ public class ServiceForGuestTest {
 
     @Test
     public void shouldDeleteBill(){
-        Table table = new Table(1);
-
+        Integer table = 1;
         final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
         restaurantService.addBill(guestBill);
@@ -193,23 +187,21 @@ public class ServiceForGuestTest {
     @Test
     public void shouldUpdateBill(){
 
-        Table table = new Table(2);
-
+        Integer table = 2;
         final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
         restaurantService.addBill(guestBill);
 
 
-        final GuestBill guestBillUpdated = GuestBill.from("Mr Adams",15.0,new Date(),new Table(2), GuestPosition.OWNER);
+        final GuestBill guestBillUpdated = GuestBill.from("Mr Adams",15.0,new Date(),3, GuestPosition.OWNER);
+
+       restaurantService.updateBill(1,guestBillUpdated);
+
+       Bill bill = billRepository.loadById(1);
 
 
-        restaurantService.updateBill(2,guestBillUpdated);
 
-
-        Bill bill = billRepository.loadById(2);
-
-
-        Assert.assertEquals(new Double(15.0),bill.getToPay());
+       Assert.assertEquals(new Double(15.0),bill.getToPay());
 
 
 
@@ -217,7 +209,7 @@ public class ServiceForGuestTest {
 
     @Test
     public void shouldGetIdByTableNumber(){
-        final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),new Table(2), GuestPosition.GUEST);
+        final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),2, GuestPosition.GUEST);
         restaurantService.addBill(guestBill);
 
 

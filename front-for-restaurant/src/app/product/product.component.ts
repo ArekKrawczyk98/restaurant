@@ -48,11 +48,18 @@ export class ProductComponent implements OnInit {
 
   addProduct(form: NgForm) {
     this.productToBeAdded = form.value;
-    this.productService.addProduct(this.productToBeAdded).subscribe((data: Product) => {
-       this.productAdded = data;
-       this.addClicked = false;
-       this.products.push(this.productAdded);
-    });
+    console.log(this.productToBeAdded);
+    if (this.productToBeAdded.cost === 0 || this.productToBeAdded.name === '') {
+      alert('U cannot add product without any properties');
+
+    } else {
+      this.productService.addProduct(this.productToBeAdded).subscribe((data: Product) => {
+        this.productAdded = data;
+        this.addClicked = false;
+        this.products.push(this.productAdded);
+      });
+    }
+
 
   }
 

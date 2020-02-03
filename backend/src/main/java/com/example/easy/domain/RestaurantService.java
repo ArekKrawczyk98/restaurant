@@ -89,8 +89,20 @@ public class RestaurantService {
 
     }
 
-    public void addBill(Bill bill){
-        billRepository.add(bill);
+    public boolean addBill(Bill bill){
+        if(canAddBill(bill.getTable())){
+            billRepository.add(bill);
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    private boolean canAddBill(Integer tableNumber) {
+        Integer billId = billRepository.getIdByTableNumber(tableNumber);
+        return billId == null;
     }
 
 
@@ -102,7 +114,7 @@ public class RestaurantService {
 
         billRepository.update(id,bill);
 
-        return bill.getTable().getNumber();
+        return bill.getTable();
 
     }
 

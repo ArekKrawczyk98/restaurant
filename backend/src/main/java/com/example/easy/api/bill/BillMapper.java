@@ -1,7 +1,6 @@
 package com.example.easy.api.bill;
 
 import com.example.easy.domain.Bill;
-import com.example.easy.domain.Table;
 
 
 public class BillMapper {
@@ -11,14 +10,14 @@ public class BillMapper {
         BillEntity billEntity = new BillEntity();
         billEntity.setDate(domain.getDate());
         billEntity.setMoneyPaid(domain.getToPay());
-        billEntity.setTableNumber(domain.getTable().getNumber());
+        billEntity.setTableNumber(domain.getTable());
         return billEntity;
 
     }
     public static Bill mapFromEntityToDomainModel(BillEntity entity){
 
 
-        return new Bill(entity.getMoneyPaid(),entity.getDate(),new Table(entity.getTableNumber()));
+        return new Bill(entity.getMoneyPaid(),entity.getDate(),entity.getTableNumber());
 
     }
 

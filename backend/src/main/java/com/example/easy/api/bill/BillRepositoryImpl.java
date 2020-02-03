@@ -1,7 +1,6 @@
 package com.example.easy.api.bill;
 
 import com.example.easy.domain.Bill;
-import com.example.easy.domain.Table;
 import com.example.easy.domain.guest.BillRepository;
 import lombok.AllArgsConstructor;
 
@@ -71,8 +70,8 @@ public class BillRepositoryImpl implements BillRepository{
     }
 
     @Override
-    public Integer getIdByTableNumber(Table table) {
-      return  billRepositorySpringData.findIdByTableNumber(table.getNumber());
+    public Integer getIdByTableNumber(Integer table) {
+      return  billRepositorySpringData.findIdByTableNumber(table);
     }
 
 

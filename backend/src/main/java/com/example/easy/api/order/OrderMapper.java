@@ -14,7 +14,7 @@ public class OrderMapper {
         for (Product x: order.getList()) {
             productEntities.add(ProductMapper.fromDomainModelToEntity(x));
         }
-        return new OrderEntity(order.getId(),productEntities);
+        return new OrderEntity(Integer.valueOf(order.getId()),productEntities);
     }
 
     public static Order fromEntityToDomainModel(OrderEntity entity){
@@ -22,6 +22,6 @@ public class OrderMapper {
         for (ProductEntity x: entity.getProductList()) {
             products.add(ProductMapper.fromEntityToDomainModel(x));
         }
-        return new Order(entity.getId(),products);
+        return new Order(entity.getId().toString(),products);
     }
 }

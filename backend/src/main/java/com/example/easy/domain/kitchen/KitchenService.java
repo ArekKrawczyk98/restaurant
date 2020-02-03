@@ -1,6 +1,5 @@
 package com.example.easy.domain.kitchen;
 
-import com.example.easy.domain.order.Order;
 import com.example.easy.domain.product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,5 +26,6 @@ public class KitchenService {
             throw new IllegalStateException("There is no order");
         }
     }
+
 
 }
