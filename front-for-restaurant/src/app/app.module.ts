@@ -15,6 +15,7 @@ import {AppRoutingModule} from './app-routing-module';
 import { HeaderComponent } from './header/header.component';
 import { BillsComponent } from './bills/bills.component';
 import { SummaryComponent } from './summary/summary.component';
+import {OrderService} from './bills/order.service';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { SummaryComponent } from './summary/summary.component';
   imports: [
     BrowserModule, HttpClientModule, FormsModule, RouterModule, AppRoutingModule, ReactiveFormsModule
   ],
-  providers: [BillService, LoggingService, ProductService],
+  providers: [BillService, LoggingService, ProductService, OrderService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

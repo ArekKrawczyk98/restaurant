@@ -5,6 +5,7 @@ import com.example.easy.domain.RestaurantService;
 import com.example.easy.domain.order.Order;
 import com.example.easy.domain.order.OrderRepository;
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,13 +20,18 @@ public class OrderController {
     private OrderRepository orderRepository;
 
     @PostMapping
-    public void createOrder(@RequestBody Order order,@RequestBody Bill bill){
-        restaurantService.addOrder(order,bill);
+    public void createOrder(@NotNull @RequestBody OrderDTO orderDTO){
+        restaurantService.addOrder(orderDTO.getOrder(),orderDTO.getBill());
     }
 
     @DeleteMapping("/{id}")
-    public void removeOrder(@PathVariable String id,@RequestBody Bill bill ){
+    public void removeOrderWhenAdded(@PathVariable String id, @RequestParam long billId ){
+        Bill bill = restaurantService.getBillById(billId);
         restaurantService.removeOrderWhenAlreadyAdded(id,bill);
+    }
+    @DeleteMapping
+    public void removeOrder(@RequestParam String id){
+        orderRepository.remove(id);
     }
 
     @GetMapping("/all")
@@ -33,9 +39,14 @@ public class OrderController {
         return orderRepository.loadAll();
 
     }
-    @GetMapping("{id}")
-    public Order getById(@PathVariable String id){
-        return orderRepository.load(id);
+    @GetMapping("/{id}")
+    public Order getById(@PathVariable Integer id){
+        return orderRepository.load(String.valueOf(id));
+    }
+
+    @GetMapping("/billId={id}")
+    public List<Order> getAllOrdersForBillId(@PathVariable Long id){
+        return orderRepository.getAllOrdersForBillId(id);
     }
 
 

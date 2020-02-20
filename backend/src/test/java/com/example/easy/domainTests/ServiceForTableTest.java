@@ -32,10 +32,10 @@ public class ServiceForTableTest {
 
         Integer table = 1;
 
-        TableBill tableBill = new TableBill(0.0,new Date(),table);
+        TableBill tableBill = new TableBill(1L,0.0,new Date(),table);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(), Collections.singletonList(new Product("Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(UUID.randomUUID().toString(), Collections.singletonList(new Product(125,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
 
         restaurantService.addOrder(newOrder, tableBill);
 
@@ -48,11 +48,11 @@ public class ServiceForTableTest {
     public void shouldSplitTheBill(){
         Integer table = 1;
 
-        TableBill tableBill = new TableBill(0.0,new Date(),table);
+        TableBill tableBill = new TableBill(1L,0.0,new Date(),table);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(), Collections.singletonList(new Product("Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
-        final Order newOrder1 = new Order(UUID.randomUUID().toString(), Collections.singletonList(new Product("Dinner nr 2",30.0, ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(UUID.randomUUID().toString(), Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
+        final Order newOrder1 = new Order(UUID.randomUUID().toString(), Collections.singletonList(new Product(1,"Dinner nr 2",30.0, ProductCategory.MAIN_COURSES)));
 
 
         restaurantService.addOrder(newOrder, tableBill);

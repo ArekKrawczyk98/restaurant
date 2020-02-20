@@ -19,7 +19,7 @@
     <button (click)=selectBill(bill)>Pay bill</button>
     <button (click)="deleteBill(bill)">Delete</button>
     <button (click)="showProducts(bill)">Add order</button>
-    <button (click)="showOrdersForThisBill(bills.indexOf(bill)+1)">Show orders</button>
+    <button (click)="showOrdersForThisBill(bill)">Show orders</button>
   </tr>
   </tbody>
 </table>
@@ -81,6 +81,26 @@
   <input [(ngModel)]="moneyGiven" type="number" id="money" [ngModelOptions]="{standalone: true}">
   <button value="submit">Pay</button>
 </form>
+
+
+<table class="table-bordered" *ngIf="ordersForSelectedBill!=null">
+  <thead>
+  <tr>
+    <td>Product's name:</td>
+    <td>Cost:</td>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of ordersForSelectedBill.pop().products">
+    <td>{{product.name}}</td>
+    <td>{{product.cost}}$</td>
+  </tr>
+  </tbody>
+</table>
+
+
+
 
 
 

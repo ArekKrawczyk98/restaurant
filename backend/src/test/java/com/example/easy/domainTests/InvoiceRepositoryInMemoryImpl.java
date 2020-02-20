@@ -26,6 +26,12 @@ public class InvoiceRepositoryInMemoryImpl implements InvoiceRepository {
     }
 
     @Override
+    public Invoice loadByDate(Date date) {
+        //TODO date
+        return null;
+    }
+
+    @Override
     public List<Invoice> getAllFromCurrentDate() {
         List<Invoice> list = new ArrayList<>();
         List<Invoice> temp = new ArrayList<>(database.values());

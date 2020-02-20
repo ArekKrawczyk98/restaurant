@@ -16,17 +16,17 @@ public class GuestBill extends Bill {
     @Getter
     private final GuestPosition guestPosition;
 
-    public GuestBill(Double toPay, Date date, Integer table, String name, GuestPosition guestPosition) {
-        super(toPay, date, table);
+    public GuestBill(Long id,Double toPay, Date date, Integer table, String name, GuestPosition guestPosition) {
+        super(id,toPay, date, table);
         this.name = name;
         this.guestPosition = guestPosition;
     }
 
 
 
-    public static GuestBill from(String name, Double toPay, Date date, Integer table, GuestPosition guestposition){
+    public static GuestBill from(Long id,String name, Double toPay, Date date, Integer table, GuestPosition guestposition){
 
-        return new GuestBill(toPay,date,table,name,guestposition);
+        return new GuestBill(id,toPay,date,table,name,guestposition);
     }
 
     public double billToBePaid(){

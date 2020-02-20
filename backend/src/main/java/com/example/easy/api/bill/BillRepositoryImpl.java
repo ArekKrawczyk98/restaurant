@@ -14,9 +14,9 @@ public class BillRepositoryImpl implements BillRepository{
     private final BillRepositorySpringData billRepositorySpringData;
 
     @Override
-    public Bill loadById(int id) {
+    public Bill loadById(long id) {
 
-        Optional<BillEntity> billEntity = billRepositorySpringData.findById(id);
+        Optional<BillEntity> billEntity = billRepositorySpringData.findById(Math.toIntExact(id));
         if (billEntity.isPresent()){
 
             return BillMapper.mapFromEntityToDomainModel(billEntity.get());
@@ -60,17 +60,17 @@ public class BillRepositoryImpl implements BillRepository{
     }
 
     @Override
-    public void delete(int id) {
-        billRepositorySpringData.deleteById(id);
+    public void delete(long id) {
+        billRepositorySpringData.deleteById(Math.toIntExact(id));
     }
 
     @Override
-    public void update(int id, Bill bill) {
+    public void update(long id, Bill bill) {
         add(bill);
     }
 
     @Override
-    public Integer getIdByTableNumber(Integer table) {
+    public Long getIdByTableNumber(Integer table) {
       return  billRepositorySpringData.findIdByTableNumber(table);
     }
 

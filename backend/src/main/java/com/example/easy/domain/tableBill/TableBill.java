@@ -9,18 +9,18 @@ import java.util.Date;
 public class TableBill extends Bill {
 
 
-    public TableBill(Double toPay, Date date, Integer table) {
-        super(toPay, date, table);
+    public TableBill(Long id,Double toPay, Date date, Integer table) {
+        super(id,toPay, date, table);
     }
 
-    public static TableBill from(Double toPay,Date date, Integer table){
-        return new TableBill(toPay,date,table);
+    public static TableBill from(Long id,Double toPay,Date date, Integer table){
+        return new TableBill(id,toPay,date,table);
     }
 
     public Bill splitTableBill(Double pay){
         if (getToPay()>pay){
             this.subtractMoney(pay);
-            return new Bill(pay,getDate(),getTable());
+            return new Bill(getId()+10000L,pay,getDate(),getTable());
 
         }
 

@@ -1,11 +1,16 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {AddOrderDTO} from '../DTO/AddOrderDTO';
 
 @Injectable()
-class OrderService {
-  private urlToAddOrder = 'https://localhost:8080/orders';
+export class OrderService {
+  private urlForOrders = 'http://localhost:8080/orders';
   private urlToShowOrders = '';
   constructor(private service: HttpClient) {
+  }
+
+  postOrder(order: AddOrderDTO) {
+    return this.service.post(this.urlForOrders, order);
   }
 
   getAllOrders() {
@@ -13,10 +18,14 @@ class OrderService {
   }
 
   getOrderById(id: string) {
-    const url = this.urlToAddOrder + '/id';
+    const url = this.urlForOrders + '/id';
     return this.service.get(url);
   }
 
 
+  getAllOrdersByBillId(billId: number) {
+    const url = this.urlForOrders + '/billId=' + billId;
+    return this.service.get(url);
 
+  }
 }

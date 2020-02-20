@@ -7,16 +7,16 @@ import java.util.*;
 
 public class BillRepositoryInMemoryImpl implements BillRepository {
 
-    private final HashMap<Integer, Bill> database = new HashMap<>();
+    private final HashMap<Long, Bill> database = new HashMap<>();
     @Override
-    public Bill loadById(int id) {
+    public Bill loadById(long id) {
         return database.get(id);
     }
 
     @Override
     public void add(Bill bill) {
 
-        database.put(database.size()+1, bill);
+        database.put((long) (database.size() + 1), bill);
 
     }
 
@@ -28,14 +28,14 @@ public class BillRepositoryInMemoryImpl implements BillRepository {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
 
         database.remove(id);
 
     }
 
     @Override
-    public void update(int id, Bill bill) {
+    public void update(long id, Bill bill) {
 
         database.replace(id,bill);
 
@@ -44,7 +44,7 @@ public class BillRepositoryInMemoryImpl implements BillRepository {
 
 
     @Override
-    public Integer getIdByTableNumber(Integer table) {
+    public Long getIdByTableNumber(Integer table) {
  /*       for (Bill bill : database.values()) {
             if (bill.getTable().equals(table)){
                 return table.getNumber();
@@ -52,7 +52,7 @@ public class BillRepositoryInMemoryImpl implements BillRepository {
 
 
         }*/
-        Optional<Integer> o = database.entrySet().stream().
+        Optional<Long> o = database.entrySet().stream().
                 filter(map -> map.getValue().getTable().equals(table)).
                 map(Map.Entry::getKey).
                 findFirst();

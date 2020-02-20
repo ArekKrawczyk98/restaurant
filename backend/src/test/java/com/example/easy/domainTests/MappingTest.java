@@ -25,7 +25,7 @@ public class MappingTest {
 
         Bill domain = BillMapper.mapFromEntityToDomainModel(billEntity);
 
-        Assert.assertNull(domain.getTable());
+        Assert.assertEquals(1L,domain.getId().longValue());
 
     }
 

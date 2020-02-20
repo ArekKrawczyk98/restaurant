@@ -9,9 +9,9 @@ public class Invoice {
     private final String id;
     private final Date date;
     private final Double moneyThatNeedToBePaid;
-    private final Double moneyRecieved;
+    private final Double moneyReceived;
 
     public Double getRest(){
-        return moneyRecieved-moneyThatNeedToBePaid;
+        return moneyReceived -moneyThatNeedToBePaid;
     }
 }

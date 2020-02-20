@@ -17,12 +17,14 @@ public class InvoiceTest {
     @Test
     public void shouldAddInvoice(){
         String id=UUID.randomUUID().toString();
-        Invoice invoice = new Invoice(id,new Date(),50.0,60.0);
+        Double moneyReceived = 60.0;
+        Invoice invoice = new Invoice(id,new Date(),50.0,moneyReceived);
         invoiceRepository.save(invoice);
 
         Invoice saved=invoiceRepository.load(id);
 
         Assert.assertEquals(id,saved.getId());
+        Assert.assertEquals(moneyReceived,invoice.getMoneyReceived());
     }
 
     @Test

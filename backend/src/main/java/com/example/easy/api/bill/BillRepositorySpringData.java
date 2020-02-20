@@ -6,5 +6,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface BillRepositorySpringData extends JpaRepository<BillEntity,Integer> {
     @Query(value = "select id from bills where table_number=:tableNumber", nativeQuery = true)
-    Integer findIdByTableNumber(@Param("tableNumber") Integer tableNumber);
+    Long findIdByTableNumber(@Param("tableNumber") Integer tableNumber);
 }

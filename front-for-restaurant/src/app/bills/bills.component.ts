@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Bill} from './bill';
 import {BillService} from './bill.service';
+import {OrderService} from './order.service';
 import {NgForm} from '@angular/forms';
 import {Product} from '../product/product';
 import {ProductService} from '../product/product.service';
 import {Order} from './order';
 import {BillToBePaid} from './billToBePaid';
+import {AddOrderDTO} from '../DTO/AddOrderDTO';
 
 @Component({
   selector: 'app-bills',
@@ -19,12 +21,14 @@ export class BillsComponent implements OnInit {
   billAdded: Bill;
   products: Product[];
   order: Order;
+  ordersForSelectedBill: Order[];
   billSelectedToAddOrder: Bill;
   billSelectedToBePaid: Bill;
   private showPayLabel: boolean;
   private moneyGiven: number;
+  private orderCount = 0;
 
-  constructor(private service: BillService, private productService: ProductService) { }
+  constructor(private service: BillService, private productService: ProductService, private orderService: OrderService) { }
 
   ngOnInit() {
   this.showAllBills();
@@ -72,25 +76,30 @@ export class BillsComponent implements OnInit {
   showProducts(bill: Bill) {
     this.productService.getAllProducts().subscribe((data: Product[]) => {
       this.products = data;
-      this.order = new Order('sth');
+      this.orderCount++;
+      this.order = new Order(this.orderCount);
       this.billSelectedToAddOrder = bill;
     });
   }
 
   choose(product: Product) {
     if (this.order === null) {
-      this.order = new Order('id');
+      this.orderCount++;
+      this.order = new Order(this.orderCount);
     }
     this.order.addToOrder(product);
   }
 
   sendOrder(order: Order) {
-    // TODO sending order
-    this.order = null;
-    this.billSelectedToAddOrder = null;
+    const orderToBeSent = new AddOrderDTO(order, this.billSelectedToAddOrder);
+    console.log(orderToBeSent);
+    this.orderService.postOrder(orderToBeSent).subscribe();
+
   }
 
-  showOrdersForThisBill(billId: number) {
-     // TODO show orders
+  showOrdersForThisBill(bill: Bill) {
+    this.orderService.getAllOrdersByBillId(bill.id).subscribe((data: Order[]) => {
+      this.ordersForSelectedBill = data;
+    });
   }
 }

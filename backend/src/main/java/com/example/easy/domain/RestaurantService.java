@@ -43,6 +43,7 @@ public class RestaurantService {
 
             Invoice invoice = new Invoice(UUID.randomUUID().toString(),new Date(),moneyNeeded,moneyGiven);
             invoiceRepository.save(invoice);
+            billRepository.delete(bill.getId());
             current.addToCurrentMoney(invoice);
             if(moneyGiven.equals(moneyNeeded)){
                 return 0.0;
@@ -56,7 +57,7 @@ public class RestaurantService {
 
     public void addOrder(Order order, Bill bill){
         order.setStatus(OrderStatus.ACCEPTED);
-        orderRepository.add(order);
+        orderRepository.add(order, Math.toIntExact(bill.getId()));
         bill.addToPay(order);
         sendOrders(order);
 
@@ -74,7 +75,7 @@ public class RestaurantService {
 
         order.setStatus(OrderStatus.REMOVED);
 
-        List<Product> list = order.getList();
+        List<Product> list = order.getProducts();
 
         barService.getBarOrders().removeAll(list);
         kitchenService.getKitchenOrders().removeAll(list);
@@ -90,7 +91,7 @@ public class RestaurantService {
     }
 
     public boolean addBill(Bill bill){
-        if(canAddBill(bill.getTable())){
+        if(canAddBill(bill.getId())){
             billRepository.add(bill);
             return true;
         }
@@ -100,17 +101,17 @@ public class RestaurantService {
 
     }
 
-    private boolean canAddBill(Integer tableNumber) {
-        Integer billId = billRepository.getIdByTableNumber(tableNumber);
-        return billId == null;
+    private boolean canAddBill(Long id) {
+      return billRepository.loadById(id) == null;
+
     }
 
 
-    public Bill getBillById(int id) {
+    public Bill getBillById(long id) {
         return billRepository.loadById(id);
     }
 
-    public Integer updateBill(int id, Bill bill) {
+    public Integer updateBill(long id, Bill bill) {
 
         billRepository.update(id,bill);
 
@@ -118,7 +119,7 @@ public class RestaurantService {
 
     }
 
-    public void removeBill(int id) {
+    public void removeBill(long id) {
         billRepository.delete(id);
     }
 

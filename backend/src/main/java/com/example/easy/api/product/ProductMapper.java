@@ -6,10 +6,11 @@ import com.example.easy.domain.product.ProductCategory;
 public class ProductMapper {
 
     public static Product fromEntityToDomainModel(ProductEntity productEntity){
-        return new Product(productEntity.getName(),productEntity.getCost(),assignToCategory(productEntity.getName()));
+        return new Product(productEntity.getId(),productEntity.getName(),productEntity.getCost(),assignToCategory(productEntity.getName()));
     }
     public static ProductEntity fromDomainModelToEntity(Product product){
-        return new ProductEntity(product.getName(),product.getCost());
+        return new ProductEntity(product
+                .getId(),product.getName(),product.getCost());
     }
 
     private static ProductCategory assignToCategory(String name) {

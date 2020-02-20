@@ -54,7 +54,7 @@ public class BillController {
     @DeleteMapping("/{tableNumber}")
     public void deleteBill(@PathVariable int tableNumber){
 
-        Integer id = billRepository.getIdByTableNumber(tableNumber);
+        Long id = billRepository.getIdByTableNumber(tableNumber);
 
         restaurantService.removeBill(id);
 
@@ -68,13 +68,8 @@ public class BillController {
     @PostMapping("/payBill")
     public Double payAndGetRestFromBill(@RequestBody BillDTO billDTO){
 
-        System.out.println(billDTO.toString());
+        return restaurantService.payTheBillAndGetRest(billDTO.getBill(),billDTO.getMoney());
 
-
-       /* return restaurantService.payTheBillAndGetRest(billDTO.getBill(),
-                billDTO.getMoney());*/
-
-       return null;
     }
 
 

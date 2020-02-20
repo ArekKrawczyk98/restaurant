@@ -11,6 +11,7 @@ import java.util.Date;
 @NonFinal
 public class Bill implements Serializable {
 
+    private Long id;
     @NonFinal
     private Double toPay;
     private final Date date;

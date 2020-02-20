@@ -11,7 +11,7 @@ public class OrderRepositoryInMemoryImpl implements OrderRepository {
     private final HashMap<String, Order> database = new HashMap<>();
 
     @Override
-    public void add(Order order) {
+    public void add(Order order,Integer billId) {
         database.put(order.getId(),order);
 
     }
@@ -32,6 +32,11 @@ public class OrderRepositoryInMemoryImpl implements OrderRepository {
     public void update(String idToBeReplaced,Order order) {
         database.replace(idToBeReplaced,order);
 
+    }
+
+    @Override
+    public List<Order> getAllOrdersForBillId(Long billId) {
+        return null;
     }
 
     @Override

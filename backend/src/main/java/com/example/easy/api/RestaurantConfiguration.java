@@ -47,8 +47,8 @@ public class RestaurantConfiguration {
     }
 
     @Bean
-    InvoiceRepository invoiceRepository(InvoiceRepositorySpringData invoiceRepostiorySpringData){
-        return new InvoiceRepositoryImpl(invoiceRepostiorySpringData);
+    InvoiceRepository invoiceRepository(InvoiceRepositorySpringData invoiceRepositorySpringData){
+        return new InvoiceRepositoryImpl(invoiceRepositorySpringData);
     }
     @Bean
     OrderRepository orderRepository(OrderRepositorySpringData orderRepositorySpringData){

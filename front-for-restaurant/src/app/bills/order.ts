@@ -2,14 +2,14 @@ import {Product} from '../product/product';
 
 
 export class Order {
-  id: string;
+  id: number;
   products: Product[];
 
   addToOrder(product: Product) {
     this.products.push(product);
 }
 
-  constructor(id: string) {
+  constructor(id: number) {
     this.id = id;
     this.products = [];
   }

@@ -31,10 +31,10 @@ public class ServiceForGuestTest {
 
         Integer table = 1;
 
-        GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
+        GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product("Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
 
         restaurantService.addOrder(newOrder, guestBill);
 
@@ -46,10 +46,10 @@ public class ServiceForGuestTest {
     public void shouldPayTheBillAsGuest(){
         Integer table = 1;
 
-        GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
+        GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product("Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
 
         restaurantService.addOrder(newOrder, guestBill);
 
@@ -64,10 +64,10 @@ public class ServiceForGuestTest {
     @Test
     public void shouldPayTheBillAsOwner(){
         Integer table = 1;
-        GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.OWNER);
+        GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.OWNER);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product("Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
 
         restaurantService.addOrder(newOrder, guestBill);
 
@@ -83,10 +83,10 @@ public class ServiceForGuestTest {
     public void shouldPayTheBillAsEmployee(){
 
         Integer table = 1;
-        GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.EMPLOYEE);
+        GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.EMPLOYEE);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product("Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
 
         restaurantService.addOrder(newOrder, guestBill);
 
@@ -100,12 +100,12 @@ public class ServiceForGuestTest {
     @Test
     public void shouldRemoveOrderWhenAlreadyAdded(){
         Integer table = 1;
-        GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
+        GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
         final String orderId = UUID.randomUUID().toString();
 
 
-        final Order newOrder = new Order(orderId,Collections.singletonList(new Product("Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(orderId,Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
 
         restaurantService.addOrder(newOrder, guestBill);
 
@@ -124,10 +124,10 @@ public class ServiceForGuestTest {
     @Test
     public void shouldSendOrdersToBar(){
         Integer table = 1;
-        GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
+        GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product("Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
 
         List<Product>  barProducts= newOrder.returnBarProducts();
 
@@ -142,10 +142,10 @@ public class ServiceForGuestTest {
     @Test
     public void shouldSendOrdersToKitchen(){
         Integer table = 1;
-        GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
+        GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product("Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
 
         List<Product>  kitchenProducts= newOrder.returnKitchenProducts();
 
@@ -160,7 +160,7 @@ public class ServiceForGuestTest {
     @Test
     public void shouldAddBill(){
 
-        final GuestBill bill = GuestBill.from("Dr Sara",0.0,new Date(),1, GuestPosition.GUEST);
+        final GuestBill bill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),1, GuestPosition.GUEST);
 
         billRepository.add(bill);
 
@@ -174,13 +174,13 @@ public class ServiceForGuestTest {
     @Test
     public void shouldDeleteBill(){
         Integer table = 1;
-        final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
+        final GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
         restaurantService.addBill(guestBill);
 
-        billRepository.delete(1);
+        billRepository.delete(1L);
 
-        Assert.assertNull(billRepository.loadById(1));
+        Assert.assertNull(billRepository.loadById(1L));
 
     }
 
@@ -188,12 +188,12 @@ public class ServiceForGuestTest {
     public void shouldUpdateBill(){
 
         Integer table = 2;
-        final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
+        final GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
         restaurantService.addBill(guestBill);
 
 
-        final GuestBill guestBillUpdated = GuestBill.from("Mr Adams",15.0,new Date(),3, GuestPosition.OWNER);
+        final GuestBill guestBillUpdated = GuestBill.from(1L,"Mr Adams",15.0,new Date(),3, GuestPosition.OWNER);
 
        restaurantService.updateBill(1,guestBillUpdated);
 
@@ -209,13 +209,14 @@ public class ServiceForGuestTest {
 
     @Test
     public void shouldGetIdByTableNumber(){
-        final GuestBill guestBill = GuestBill.from("Dr Sara",0.0,new Date(),2, GuestPosition.GUEST);
+        final GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),2, GuestPosition.GUEST);
         restaurantService.addBill(guestBill);
 
 
-        final Integer index = billRepository.getIdByTableNumber(guestBill.getTable());
+        final Long index = billRepository.getIdByTableNumber(guestBill.getTable());
 
-        Assert.assertEquals(1,index.intValue());
+
+        Assert.assertEquals(1L,index.longValue());
 
 
 
