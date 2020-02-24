@@ -30,18 +30,20 @@ public class BillRepositoryImpl implements BillRepository{
     }
 
     @Override
-    public void add(Bill bill) {
+    public Long add(Bill bill) {
 
         BillEntity billEntity = BillMapper.mapFromDomainModelToEntity(bill);
+        Long id = 0L;
 
         try{
-            billRepositorySpringData.save(billEntity);
+          id = Long.valueOf(billRepositorySpringData.save(billEntity).getId());
 
 
         }
         catch (Exception e){
             System.err.println();
         }
+        return id;
 
     }
 

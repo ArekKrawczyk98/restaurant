@@ -1,7 +1,7 @@
 package com.example.easy.domain.guest;
 
 import com.example.easy.domain.Bill;
-import com.example.easy.domain.RabatePolicyService;
+import com.example.easy.domain.RebatePolicyService;
 import lombok.Getter;
 
 import java.util.Date;
@@ -30,7 +30,7 @@ public class GuestBill extends Bill {
     }
 
     public double billToBePaid(){
-        RabatePolicyService rabatePolicyService = new RabatePolicyService(guestPosition);
-        return rabatePolicyService.calculate(super.getToPay());
+        RebatePolicyService rebatePolicyService = new RebatePolicyService(guestPosition);
+        return rebatePolicyService.calculate(super.getToPay());
     }
 }

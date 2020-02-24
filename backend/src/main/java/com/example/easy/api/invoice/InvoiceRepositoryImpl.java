@@ -4,9 +4,9 @@ import com.example.easy.domain.invoice.Invoice;
 import com.example.easy.domain.invoice.InvoiceRepository;
 import lombok.AllArgsConstructor;
 
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class InvoiceRepositoryImpl implements InvoiceRepository {
@@ -28,18 +28,14 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public Invoice loadByDate(Date date) {
-       return InvoiceMapper.fromEntityToDomainModel( invoiceRepositorySpringData.findByDate(date));
-    }
-
-    @Override
     public List<Invoice> getAllFromCurrentDate() {
-        return null;
+        List<InvoiceEntity> list = invoiceRepositorySpringData.findByCurrentDay();
+        return list.stream().map(InvoiceMapper::fromEntityToDomainModel).collect(Collectors.toList());
     }
 
     @Override
     public List<Invoice> findAll() {
-        List<InvoiceEntity> list = (List<InvoiceEntity>) invoiceRepositorySpringData.findAll();
+        List<InvoiceEntity> list = invoiceRepositorySpringData.findAll();
         List<Invoice> domainList = new LinkedList<>();
         for (InvoiceEntity x : list) {
             domainList.add(InvoiceMapper.fromEntityToDomainModel(x));

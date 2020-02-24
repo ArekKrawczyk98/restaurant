@@ -20,7 +20,6 @@ public class RestaurantService {
 
     private final BillRepository billRepository;
     private final InvoiceRepository invoiceRepository;
-    private final Zmiana current;
     private final OrderRepository orderRepository;
     private final KitchenService kitchenService;
     private final BarService barService;
@@ -43,8 +42,7 @@ public class RestaurantService {
 
             Invoice invoice = new Invoice(UUID.randomUUID().toString(),new Date(),moneyNeeded,moneyGiven);
             invoiceRepository.save(invoice);
-            billRepository.delete(bill.getId());
-            current.addToCurrentMoney(invoice);
+            this.removeBill(bill.getId());
             if(moneyGiven.equals(moneyNeeded)){
                 return 0.0;
             }
@@ -59,6 +57,7 @@ public class RestaurantService {
         order.setStatus(OrderStatus.ACCEPTED);
         orderRepository.add(order, Math.toIntExact(bill.getId()));
         bill.addToPay(order);
+        billRepository.update(bill.getId(),bill);
         sendOrders(order);
 
     }
@@ -91,20 +90,11 @@ public class RestaurantService {
     }
 
     public boolean addBill(Bill bill){
-        if(canAddBill(bill.getId())){
-            billRepository.add(bill);
-            return true;
-        }
-        else {
-            return false;
-        }
+        Long id = billRepository.add(bill);
+        return id != 0L;
 
     }
 
-    private boolean canAddBill(Long id) {
-      return billRepository.loadById(id) == null;
-
-    }
 
 
     public Bill getBillById(long id) {
@@ -120,6 +110,7 @@ public class RestaurantService {
     }
 
     public void removeBill(long id) {
+        orderRepository.removeAllOrdersByBillId(id);
         billRepository.delete(id);
     }
 

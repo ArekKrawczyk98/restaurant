@@ -51,10 +51,8 @@ public class BillController {
        return restaurantService.updateBill(id,bill);
     }
 
-    @DeleteMapping("/{tableNumber}")
-    public void deleteBill(@PathVariable int tableNumber){
-
-        Long id = billRepository.getIdByTableNumber(tableNumber);
+    @DeleteMapping("/{id}")
+    public void deleteBill(@PathVariable long id){
 
         restaurantService.removeBill(id);
 

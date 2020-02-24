@@ -18,4 +18,17 @@ public interface OrderRepositorySpringData extends JpaRepository<OrderEntity,Int
 
     @Query(nativeQuery = true, value = "select * from orders where bill_id=:orderId")
     List<OrderEntity>getAllOrdersForBillId(@Param("orderId")Integer orderId);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true, value = "delete from orders where bill_id=:id")
+    void deleteAllByBillId(@Param("id") long id);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true, value = "delete from orders_products where order_id=:id")
+    void deleteAllByOrderIdIdFromJoinTable(@Param("id") long id);
+
+    @Query(nativeQuery = true, value = "select id from orders where bill_id=:id")
+    List<Integer> findAllOrdersIdByBillId(@Param("id") long id);
 }

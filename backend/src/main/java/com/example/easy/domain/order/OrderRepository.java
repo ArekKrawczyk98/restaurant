@@ -10,4 +10,6 @@ public interface OrderRepository {
     List<Order> getAllOrdersForBillId(Long billId);
 
     List<Order> loadAll();
+
+    void removeAllOrdersByBillId(long id);
 }

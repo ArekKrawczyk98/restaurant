@@ -19,13 +19,12 @@ import java.util.UUID;
 import static org.junit.Assert.assertEquals;
 
 public class ServiceForTableTest {
-    private final Zmiana current = new Zmiana(new Date(),0.0);
     private final BillRepository billRepository = new BillRepositoryInMemoryImpl();
     private final InvoiceRepository invoiceRepository = new InvoiceRepositoryInMemoryImpl();
     private final OrderRepository orderRepository = new OrderRepositoryInMemoryImpl();
     private final KitchenService kitchenService = new KitchenService(new ArrayList<>(),0.0);
     private final BarService barService = new BarService(new ArrayList<>(),0.0);
-    private final RestaurantService restaurantService = new RestaurantService(billRepository,invoiceRepository,current,orderRepository,kitchenService,barService);
+    private final RestaurantService restaurantService = new RestaurantService(billRepository,invoiceRepository,orderRepository,kitchenService,barService);
 
     @Test
     public void shouldAddOrder(){

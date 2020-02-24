@@ -28,5 +28,10 @@ public class InvoiceController {
         return repository.findAll();
     }
 
+    @GetMapping
+    public List<Invoice> getInvoicesForCurrentDay(){
+        return repository.getAllFromCurrentDate();
+    }
+
 
 }

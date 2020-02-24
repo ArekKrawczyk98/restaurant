@@ -4,7 +4,7 @@ import com.example.easy.domain.guest.GuestPosition;
 import lombok.Value;
 
 @Value
-public class RabatePolicyService implements RabatePolicy {
+public class RebatePolicyService implements RabatePolicy {
 
     private GuestPosition guestPosition;
 

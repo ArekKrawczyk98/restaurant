@@ -21,7 +21,7 @@ export class BillService {
   }
 
   delete(bill: Bill) {
-    const urlForDelete = this.url + '/' +  bill.table;
+    const urlForDelete = this.url + '/' +  bill.id;
 
     return this.httpService.delete(urlForDelete);
   }
@@ -31,3 +31,4 @@ export class BillService {
     return this.httpService.get(urlForAll);
   }
 }
+

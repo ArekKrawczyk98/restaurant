@@ -10,17 +10,14 @@ import com.example.easy.api.product.ProductRepository;
 import com.example.easy.api.product.ProductSpringData;
 import com.example.easy.domain.BarService;
 import com.example.easy.domain.RestaurantService;
-import com.example.easy.domain.Zmiana;
 import com.example.easy.domain.guest.BillRepository;
 import com.example.easy.domain.invoice.InvoiceRepository;
 import com.example.easy.domain.kitchen.KitchenService;
 import com.example.easy.domain.order.OrderRepository;
-import com.example.easy.domain.product.Product;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 @Configuration
 public class RestaurantConfiguration {
@@ -28,14 +25,12 @@ public class RestaurantConfiguration {
     @Bean
     RestaurantService restaurantService(BillRepository billRepository,
                                         InvoiceRepository invoiceRepository,
-                                        Zmiana zmiana,
                                         OrderRepository orderRepository,
                                         KitchenService kitchenService,
                                         BarService barService){
 
         return new RestaurantService(billRepository,
                                      invoiceRepository,
-                                     zmiana,
                                      orderRepository,
                                      kitchenService,
                                      barService);
@@ -57,16 +52,12 @@ public class RestaurantConfiguration {
 
     @Bean
     KitchenService kitchenService(){
-        return new KitchenService(new ArrayList<Product>(), (double) 0);
+        return new KitchenService(new ArrayList<>(), (double) 0);
     }
 
     @Bean
     BarService barService(){
-        return new BarService(new ArrayList<Product>(), (double) 0);
-    }
-    @Bean
-    Zmiana zmiana(){
-        return new Zmiana(new Date(),(double)0);
+        return new BarService(new ArrayList<>(), (double) 0);
     }
 
     @Bean

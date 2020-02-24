@@ -18,13 +18,12 @@ import java.util.*;
 
 public class ServiceForGuestTest {
 
-    private final Zmiana current = new Zmiana(new Date(),0.0);
     private final BillRepository billRepository = new BillRepositoryInMemoryImpl();
     private final InvoiceRepository invoiceRepository = new InvoiceRepositoryInMemoryImpl();
     private final OrderRepository orderRepository = new OrderRepositoryInMemoryImpl();
     private final KitchenService kitchenService = new KitchenService(new ArrayList<>(),0.0);
     private final BarService barService = new BarService(new ArrayList<>(),0.0);
-    private final RestaurantService restaurantService = new RestaurantService(billRepository,invoiceRepository,current,orderRepository,kitchenService,barService);
+    private final RestaurantService restaurantService = new RestaurantService(billRepository,invoiceRepository,orderRepository,kitchenService,barService);
 
     @Test
     public void shouldAddOrder(){
@@ -38,7 +37,7 @@ public class ServiceForGuestTest {
 
         restaurantService.addOrder(newOrder, guestBill);
 
-        Assert.assertEquals(guestBill.getToPay(),new Double(25.0));
+        Assert.assertEquals(25.0,guestBill.getToPay(),0);
 
 
     }
@@ -56,7 +55,7 @@ public class ServiceForGuestTest {
         Double rest=restaurantService.payTheBillAndGetRest(guestBill,40.0);
 
 
-        Assert.assertEquals(rest,new Double(15.0));
+        Assert.assertEquals(15.0,rest,0);
 
 
     }
@@ -74,7 +73,7 @@ public class ServiceForGuestTest {
         Double rest=restaurantService.payTheBillAndGetRest(guestBill,0.25);
 
 
-        Assert.assertEquals(rest,new Double(0));
+        Assert.assertEquals(0,rest,0);
 
 
     }
@@ -93,7 +92,7 @@ public class ServiceForGuestTest {
         Double rest=restaurantService.payTheBillAndGetRest(guestBill,15.0);
 
 
-        Assert.assertEquals(rest,new Double(2.5));
+        Assert.assertEquals(2.5,rest,0);
 
     }
 
@@ -117,7 +116,7 @@ public class ServiceForGuestTest {
 
         //then
 
-        Assert.assertEquals(guestBill.getToPay(),new Double(0));
+        Assert.assertEquals(0,guestBill.getToPay(),0);
 
 
     }
@@ -164,9 +163,9 @@ public class ServiceForGuestTest {
 
         billRepository.add(bill);
 
-        Integer tableNumber = billRepository.loadById(1).getTable();
+        Bill billAdded = billRepository.loadById(1L);
 
-        Assert.assertEquals(Integer.valueOf(1),tableNumber);
+        Assert.assertEquals(bill.getTable(),billAdded.getTable());
     }
 
 
@@ -201,7 +200,7 @@ public class ServiceForGuestTest {
 
 
 
-       Assert.assertEquals(new Double(15.0),bill.getToPay());
+       Assert.assertEquals(15.0,bill.getToPay(),0);
 
 
 
@@ -218,9 +217,29 @@ public class ServiceForGuestTest {
 
         Assert.assertEquals(1L,index.longValue());
 
+    }
 
+    @Test
+    public void shouldGetRightPricesForOrder(){
+        List<Product> list = Arrays.asList(
+                new Product(1,"name1",25.0,ProductCategory.COLD_DRINKS),
+                new Product(2,"name2",30.0,ProductCategory.MAIN_COURSES));
+        final Order order = new Order("1",list);
+
+        Bill bill = new Bill(1L,0.0,new Date(),5);
+
+        restaurantService.addBill(bill);
+        restaurantService.addOrder(order,bill);
+
+        Bill billLoaded = billRepository.loadById(1L);
+
+
+        double price= billLoaded.getToPay();
+
+        Assert.assertEquals(55.0,price,0);
 
     }
+
 
 
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {SummaryService} from './summary.service';
+import {Invoice} from './invoice';
 
 @Component({
   selector: 'app-summary',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SummaryComponent implements OnInit {
 
-  constructor() { }
+  private invoices: Invoice[];
+
+  constructor(private summaryService: SummaryService) { }
 
   ngOnInit() {
+    this.showAllInvoicesForCurrentDay();
+  }
+
+  showAllInvoicesForCurrentDay() {
+    this.summaryService.getInvoicesForCurrentDay().subscribe((data: Invoice[]) => {
+      this.invoices = data;
+    });
   }
 
 }

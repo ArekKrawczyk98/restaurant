@@ -7,9 +7,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 public interface InvoiceRepositorySpringData extends JpaRepository<InvoiceEntity,String> {
-    InvoiceEntity findByDate(Date date);
+
+
 
     @Transactional
     @Modifying
@@ -18,4 +20,7 @@ public interface InvoiceRepositorySpringData extends JpaRepository<InvoiceEntity
                        @Param("date")Date date,
                        @Param("money_given")Double moneyGiven,
                        @Param("money_received") Double moneyReceived);
+
+    @Query(nativeQuery = true,value = "select * from invoices where date = current_date;")
+    List <InvoiceEntity> findByCurrentDay();
 }

@@ -1,6 +1,5 @@
 package com.example.easy.api.order;
 
-import com.example.easy.api.product.ProductEntity;
 import com.example.easy.domain.order.Order;
 import com.example.easy.domain.order.OrderRepository;
 import lombok.AllArgsConstructor;
@@ -18,10 +17,6 @@ public class OrderRepositoryImpl implements OrderRepository {
     public void add(Order order,Integer billId) {
 
         OrderEntity entity = OrderMapper.fromDomainModelToEntity(order,billId);
-        for (ProductEntity x : entity.getProductList()) {
-            orderRepositorySpringData.saveToJoinTable(entity.getId(),x.getId());
-
-        }
 
         orderRepositorySpringData.save(entity);
 
@@ -73,6 +68,17 @@ public class OrderRepositoryImpl implements OrderRepository {
             orderList.add(OrderMapper.fromEntityToDomainModel(x));
         }
         return orderList;
+    }
+
+    @Override
+    public void removeAllOrdersByBillId(long id) {
+        List<Integer> listOfIds = orderRepositorySpringData.findAllOrdersIdByBillId(id);
+        orderRepositorySpringData.deleteAllByBillId(id);
+        for (int x :listOfIds) {
+            orderRepositorySpringData.deleteAllByOrderIdIdFromJoinTable(x);
+
+        }
+
     }
 }
 

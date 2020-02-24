@@ -27,6 +27,9 @@ export class BillsComponent implements OnInit {
   private showPayLabel: boolean;
   private moneyGiven: number;
   private orderCount = 0;
+  sendOrderButtonClicked: boolean;
+  private showRestLabel: boolean;
+  private rest: number;
 
   constructor(private service: BillService, private productService: ProductService, private orderService: OrderService) { }
 
@@ -41,14 +44,21 @@ export class BillsComponent implements OnInit {
     this.service.addBill(this.billToBeAdded).subscribe((data: Bill) => {
       this.billAdded = data;
       if (this.billAdded === null) {
-        alert('Cant add another bill to same table number');
       } else {
         this.bills.push(this.billAdded);
       }
     });
   }
   payBill(bill: Bill, money: number) {
-    this.service.payBill( new BillToBePaid(bill, money)).subscribe();
+    this.service.payBill( new BillToBePaid(bill, money)).subscribe((data: number) => {
+      this.bills.splice(this.bills.indexOf(bill), 1);
+      this.showPayLabel = ! this.showPayLabel;
+      if (data !== 0) {
+        this.rest = data;
+        this.showRestLabel = true;
+      }
+    });
+
   }
 
   selectBill(bill: Bill) {
@@ -79,7 +89,9 @@ export class BillsComponent implements OnInit {
       this.orderCount++;
       this.order = new Order(this.orderCount);
       this.billSelectedToAddOrder = bill;
+      this.sendOrderButtonClicked = false;
     });
+
   }
 
   choose(product: Product) {
@@ -92,14 +104,20 @@ export class BillsComponent implements OnInit {
 
   sendOrder(order: Order) {
     const orderToBeSent = new AddOrderDTO(order, this.billSelectedToAddOrder);
-    console.log(orderToBeSent);
     this.orderService.postOrder(orderToBeSent).subscribe();
+    this.billSelectedToAddOrder.toPay += order.totalCost();
+    this.sendOrderButtonClicked = true;
+    this.order = null;
 
   }
 
   showOrdersForThisBill(bill: Bill) {
     this.orderService.getAllOrdersByBillId(bill.id).subscribe((data: Order[]) => {
-      this.ordersForSelectedBill = data;
+      if (data.length !== 0) {
+        this.ordersForSelectedBill = data;
+      } else {
+        this.ordersForSelectedBill = null;
+      }
     });
   }
 }

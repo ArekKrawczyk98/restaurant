@@ -32,7 +32,7 @@
 </form>
 
 <br>
-<table class="table-bordered" *ngIf="products!=null">
+<table class="table-bordered" *ngIf="sendOrderButtonClicked == false">
   <thead>
   <tr>
     <th scope="col">#</th>
@@ -87,17 +87,26 @@
   <thead>
   <tr>
     <td>Product's name:</td>
-    <td>Cost:</td>
-
+    <td>Cost</td>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let product of ordersForSelectedBill.pop().products">
-    <td>{{product.name}}</td>
-    <td>{{product.cost}}$</td>
-  </tr>
+  <ng-container *ngFor="let order of ordersForSelectedBill">
+    <ng-container *ngFor="let product of order.products">
+      <tr>
+      <td>{{product.name}}</td>
+      <td>{{product.cost}}$</td>
+      </tr>
+    </ng-container>
+  </ng-container>
   </tbody>
 </table>
+<br>
+
+<div *ngIf="showRestLabel == true">
+  <label>Rest for client:{{rest}}</label>
+  <button (click)="showRestLabel = ! showRestLabel">OK</button>
+</div>
 
 
 

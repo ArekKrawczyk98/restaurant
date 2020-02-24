@@ -21,7 +21,12 @@ public class OrderController {
 
     @PostMapping
     public void createOrder(@NotNull @RequestBody OrderDTO orderDTO){
+        if (orderDTO.getOrder().getProducts().size() == 0){
+            throw new IllegalStateException("Cannot add empty order");
+        }
+        else {
         restaurantService.addOrder(orderDTO.getOrder(),orderDTO.getBill());
+        }
     }
 
     @DeleteMapping("/{id}")

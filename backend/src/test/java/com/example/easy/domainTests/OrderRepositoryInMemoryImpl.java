@@ -43,4 +43,10 @@ public class OrderRepositoryInMemoryImpl implements OrderRepository {
     public List<Order> loadAll() {
         return (List<Order>) database.values();
     }
+
+    @Override
+    public void removeAllOrdersByBillId(long id) {
+        //cannot implement this without bills database
+
+    }
 }

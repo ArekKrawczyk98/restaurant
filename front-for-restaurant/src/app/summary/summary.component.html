@@ -1,1 +1,18 @@
 <app-header></app-header>
+
+<h2>Past today's bills</h2><br>
+<table class="table-bordered" *ngIf="invoices != null">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <td>Value of Bill</td>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let invoice of invoices">
+    <td>{{invoices.indexOf(invoice)+1}}</td>
+    <td>{{invoice.moneyReceived}}$</td>
+  </tr>
+  </tbody>
+</table>

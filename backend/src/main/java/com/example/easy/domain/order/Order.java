@@ -21,11 +21,8 @@ public class Order {
     private OrderStatus status;
 
     public Double priceOfAllProducts(){
-        double price = 0;
-        for (Product x : products) {
-            price=+x.getCost();
-        }
-        return price;
+
+      return this.products.stream().mapToDouble(Product::getCost).sum();
     }
 
     public List<Product> returnKitchenProducts(){

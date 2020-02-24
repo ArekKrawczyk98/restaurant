@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BillRepository {
     Bill loadById(long id);
-    void add(Bill bill);
+    Long add(Bill bill);
     List<Bill> loadAll();
     void delete(long id);
     void update(long id,Bill bill);

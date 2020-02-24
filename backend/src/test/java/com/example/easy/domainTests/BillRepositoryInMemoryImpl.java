@@ -14,9 +14,11 @@ public class BillRepositoryInMemoryImpl implements BillRepository {
     }
 
     @Override
-    public void add(Bill bill) {
+    public Long add(Bill bill) {
 
         database.put((long) (database.size() + 1), bill);
+
+        return database.get((long)database.size()).getId();
 
     }
 

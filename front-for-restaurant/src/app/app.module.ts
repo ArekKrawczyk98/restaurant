@@ -16,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
 import { BillsComponent } from './bills/bills.component';
 import { SummaryComponent } from './summary/summary.component';
 import {OrderService} from './bills/order.service';
+import {SummaryService} from './summary/summary.service';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import {OrderService} from './bills/order.service';
   imports: [
     BrowserModule, HttpClientModule, FormsModule, RouterModule, AppRoutingModule, ReactiveFormsModule
   ],
-  providers: [BillService, LoggingService, ProductService, OrderService],
+  providers: [BillService, LoggingService, ProductService, OrderService, SummaryService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
