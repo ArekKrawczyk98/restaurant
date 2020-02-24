@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {ApplicationInitStatus, Component, OnInit} from '@angular/core';
 import {SummaryService} from './summary.service';
 import {Invoice} from './invoice';
+import {AppComponent} from '../app.component';
+import {AppModule} from '../app.module';
 
 @Component({
   selector: 'app-summary',
@@ -23,4 +25,13 @@ export class SummaryComponent implements OnInit {
     });
   }
 
+  endService() {
+    this.summaryService.endService().subscribe((data: boolean) => {
+      if (data) {
+        this.summaryService.nowCanEndService();
+      } else {
+        console.log('cannot');
+      }
+    });
+  }
 }

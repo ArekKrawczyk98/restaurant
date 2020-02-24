@@ -11,8 +11,9 @@
     <groupId>com.example</groupId>
     <artifactId>easy</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>easy</name>
-    <description>Something easy</description>
+    <name>restaurant</name>
+    <description>Restaurant service</description>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>11</java.version>
@@ -25,17 +26,8 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-hateoas</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -71,6 +63,10 @@
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 

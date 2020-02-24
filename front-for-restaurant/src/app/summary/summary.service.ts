@@ -11,4 +11,12 @@ export class SummaryService {
   getInvoicesForCurrentDay() {
     return this.httpService.get(this.url);
   }
+
+  endService() {
+    return this.httpService.get('http://localhost:8080/end');
+  }
+
+  nowCanEndService() {
+    this.httpService.get('http://localhost:8080/end=true');
+  }
 }
