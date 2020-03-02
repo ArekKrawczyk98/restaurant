@@ -8,6 +8,7 @@ import com.example.restaurant.domain.order.Order;
 import com.example.restaurant.domain.order.OrderRepository;
 import com.example.restaurant.domain.order.OrderStatus;
 import com.example.restaurant.domain.product.Product;
+import com.example.restaurant.domain.tableBill.TableBill;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
@@ -121,6 +122,18 @@ public class RestaurantService {
     public boolean endService(){
 
         return billRepository.loadAll().isEmpty() && orderRepository.loadAll().isEmpty();
+
+    }
+    public boolean splitBill(TableBill bill, List<Product> list){
+
+        Double newBillValue = list.stream().mapToDouble(Product::getCost).sum();
+        Bill newBill = bill.splitTableBill(newBillValue);
+        Long id = billRepository.add(newBill);
+
+        return billRepository.loadById(id) != null;
+
+
+
 
     }
 

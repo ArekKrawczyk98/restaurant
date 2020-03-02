@@ -59,7 +59,7 @@ public class ServiceForTableTest {
         restaurantService.addOrder(newOrder, tableBill);
         restaurantService.addOrder(newOrder1,tableBill);
 
-        Bill bill = tableBill.splitTableBill(30.0);
+        Bill bill = tableBill.splitTableBill(newOrder1.getProducts().stream().mapToDouble(Product::getCost).sum());
 
         assertEquals(tableBill.getToPay(),new Double(25.0));
         assertEquals(bill.getToPay(),new Double(30.0));

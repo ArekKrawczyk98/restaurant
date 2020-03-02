@@ -3,6 +3,8 @@ package com.example.restaurant.api.bill;
 import com.example.restaurant.domain.Bill;
 import com.example.restaurant.domain.RestaurantService;
 import com.example.restaurant.domain.guest.BillRepository;
+import com.example.restaurant.domain.product.Product;
+import com.example.restaurant.domain.tableBill.TableBill;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -69,6 +71,18 @@ public class BillController {
         return restaurantService.payTheBillAndGetRest(billDTO.getBill(),billDTO.getMoney());
 
     }
+    @PostMapping("/split")
+    public void splitBill(@RequestBody TableBill bill, @RequestBody List<Product> products){
+        boolean isSuccessful = restaurantService.splitBill(bill,products);
+
+        if (isSuccessful){
+
+        }
+        else {
+            throw new IllegalStateException("ERROR");
+        }
+    }
+
 
 
 

@@ -40,16 +40,10 @@ ALTER TABLE public.bills OWNER TO test;
 -- Name: bills_id_seq; Type: SEQUENCE; Schema: public; Owner: test
 --
 
-CREATE SEQUENCE public.bills_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
 ALTER TABLE public.bills_id_seq OWNER TO test;
+
+
+ALTER SEQUENCE public.bills_id_seq OWNED BY public.bills.id;
 
 --
 -- TOC entry 2969 (class 0 OID 0)
@@ -57,7 +51,13 @@ ALTER TABLE public.bills_id_seq OWNER TO test;
 -- Name: bills_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: test
 --
 
-ALTER SEQUENCE public.bills_id_seq OWNED BY public.bills.id;
+CREATE SEQUENCE public.bills_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
 --
@@ -248,21 +248,20 @@ COPY public.orders_products (order_id, product_id) FROM stdin;
 -- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: test
 --
 
-COPY public.products (id, name, cost) FROM stdin;
-3	Light Beer	6.00
-4	Dark Beer	7.00
-5	Wine	11.00
-6	Ice creams	11.00
-7	Hot tea	6.00
-8	Latte	7.00
-9	Espresso	6.00
-10	Iced Coffee	8.00
-11	Grilled supreme chicken breast	20.00
-12	Grilled beef steak	27.00
-2	Jack Daniels 30ml	10.00
-1	Vodka 30ml	9.00
-41	Sasuage	11.00
-\.
+insert into products values (1,'Vodka 30ml',9.00);
+insert into products values (2,'Jack Daniels 30ml',10.00);
+insert into products values (3,'Light Beer'	,6.00);
+insert into products values (4,	'Dark Beer',7.00);
+insert into products values (5,'Wine',11.00);
+insert into products values (6,'Ice creams',11.00);
+insert into products values (7,'Hot tea',6.00);
+insert into products values (8,'Latte',7.00);
+insert into products values (9,'Espresso',6.00);
+insert into products values (10,'Iced Coffee',8.00);
+insert into products values (11,'Grilled supreme chicken breast',20.00);
+insert into products values (12,'Grilled beef steak',27.00);
+insert into products values (41,'Sasuage',11.00);
+
 
 
 --
