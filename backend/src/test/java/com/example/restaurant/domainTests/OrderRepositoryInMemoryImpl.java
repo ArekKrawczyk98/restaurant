@@ -8,28 +8,28 @@ import java.util.List;
 
 public class OrderRepositoryInMemoryImpl implements OrderRepository {
 
-    private final HashMap<String, Order> database = new HashMap<>();
+    private final HashMap<Long, Order> database = new HashMap<>();
 
     @Override
-    public void add(Order order,Integer billId) {
+    public void add(Order order,Long billId) {
         database.put(order.getId(),order);
 
     }
 
     @Override
-    public Order load(String id) {
+    public Order load(Long id) {
 
         return database.get(id);
     }
 
     @Override
-    public void remove(String id) {
+    public void remove(Long id) {
         database.remove(id);
 
     }
 
     @Override
-    public void update(String idToBeReplaced,Order order) {
+    public void update(Long idToBeReplaced,Order order) {
         database.replace(idToBeReplaced,order);
 
     }
@@ -45,7 +45,7 @@ public class OrderRepositoryInMemoryImpl implements OrderRepository {
     }
 
     @Override
-    public void removeAllOrdersByBillId(long id) {
+    public void removeAllOrdersByBillId(Long id) {
         //cannot implement this without bills database
 
     }

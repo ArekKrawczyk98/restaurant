@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class OrderMapper {
     public static OrderEntity fromDomainModelToEntity(Order order,Integer billId){
         List<ProductEntity> productEntities = order.getProducts().stream().map(ProductMapper::fromDomainModelToEntity).collect(Collectors.toList());
-        return new OrderEntity(Integer.valueOf(order.getId()),productEntities,billId);
+        return new OrderEntity(Math.toIntExact(order.getId()),productEntities,billId);
     }
 
     public static Order fromEntityToDomainModel(OrderEntity entity){
@@ -20,6 +20,6 @@ public class OrderMapper {
         for (ProductEntity x: entity.getProductList()) {
             products.add(ProductMapper.fromEntityToDomainModel(x));
         }
-        return new Order(entity.getId().toString(),products);
+        return new Order(entity.getId().longValue(),products);
     }
 }

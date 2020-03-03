@@ -14,18 +14,18 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     private OrderRepositorySpringData orderRepositorySpringData;
     @Override
-    public void add(Order order,Integer billId) {
+    public void add(Order order,Long billId) {
 
-        OrderEntity entity = OrderMapper.fromDomainModelToEntity(order,billId);
+        OrderEntity entity = OrderMapper.fromDomainModelToEntity(order, Math.toIntExact(billId));
 
         orderRepositorySpringData.save(entity);
 
     }
 
     @Override
-    public Order load(String id) {
+    public Order load(Long id) {
 
-        Optional <OrderEntity> orderEntity = orderRepositorySpringData.findById(Integer.parseInt(id));
+        Optional <OrderEntity> orderEntity = orderRepositorySpringData.findById(Integer.parseInt(id.toString()));
 
         if (orderEntity.isPresent()){
             return OrderMapper.fromEntityToDomainModel(orderEntity.get());
@@ -39,14 +39,14 @@ public class OrderRepositoryImpl implements OrderRepository {
 
 
     @Override
-    public void remove(String id) {
-        orderRepositorySpringData.deleteById(Integer.parseInt(id));
+    public void remove(Long id) {
+        orderRepositorySpringData.deleteById(Math.toIntExact(id));
 
     }
 
     @Override
-    public void update(String id, Order order) {
-        orderRepositorySpringData.save(OrderMapper.fromDomainModelToEntity(order, Integer.valueOf(id)));
+    public void update(Long id, Order order) {
+        orderRepositorySpringData.save(OrderMapper.fromDomainModelToEntity(order, Math.toIntExact(id)));
 
     }
 
@@ -71,7 +71,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public void removeAllOrdersByBillId(long id) {
+    public void removeAllOrdersByBillId(Long id) {
         List<Integer> listOfIds = orderRepositorySpringData.findAllOrdersIdByBillId(id);
         orderRepositorySpringData.deleteAllByBillId(id);
         for (int x :listOfIds) {

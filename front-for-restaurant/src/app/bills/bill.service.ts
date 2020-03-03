@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Bill} from './bill';
 import {BillToBePaid} from './billToBePaid';
+import {BillSplitDTO} from "../DTO/BillSplitDTO";
 
 @Injectable()
 export class BillService {
@@ -29,6 +30,12 @@ export class BillService {
   getAllBills() {
     const urlForAll = this.url + '/all';
     return this.httpService.get(urlForAll);
+  }
+
+  splitTheBill(billSplit: BillSplitDTO) {
+    const urlForBillSplit = this.url+'/split';
+    return this.httpService.post(urlForBillSplit,billSplit);
+
   }
 }
 

@@ -8,6 +8,7 @@ import {ProductService} from '../product/product.service';
 import {Order} from './order';
 import {BillToBePaid} from './billToBePaid';
 import {AddOrderDTO} from '../DTO/AddOrderDTO';
+import {BillSplitDTO} from "../DTO/BillSplitDTO";
 
 @Component({
   selector: 'app-bills',
@@ -30,6 +31,7 @@ export class BillsComponent implements OnInit {
   sendOrderButtonClicked: boolean;
   private showRestLabel: boolean;
   private rest: number;
+  productsToBeAddedToAnotherBill: Product[] = [];
 
   constructor(private service: BillService, private productService: ProductService, private orderService: OrderService) { }
 
@@ -39,7 +41,7 @@ export class BillsComponent implements OnInit {
   addBill(form: NgForm) {
     this.addClicked = false;
     this.billToBeAdded = {
-      date: new Date(), id: this.bills.length, toPay: 0, table: Number(form.value.number)
+      date: new Date(), id: 0, toPay: 0, table: Number(form.value.number)
     };
     this.service.addBill(this.billToBeAdded).subscribe((data: Bill) => {
       this.billAdded = data;
@@ -119,5 +121,22 @@ export class BillsComponent implements OnInit {
         this.ordersForSelectedBill = null;
       }
     });
+  }
+  splitTheBill(bill: Bill){
+    const billSplit= new BillSplitDTO(this.productsToBeAddedToAnotherBill, bill);
+    this.service.splitTheBill(billSplit).subscribe();
+    this.productsToBeAddedToAnotherBill = null;
+    this.showAllBills();
+
+}
+
+  addProductToSplitList (product: Product ) {
+    if (!this.productsToBeAddedToAnotherBill.includes(product)){
+      this.productsToBeAddedToAnotherBill.push(product);
+    }
+    else {
+
+    }
+
   }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @ToString
 public class Order {
 
-    private final String id;
+    private final Long id;
     private final List<Product> products;
     @Setter
     private OrderStatus status;

@@ -30,12 +30,12 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public void removeOrderWhenAdded(@PathVariable String id, @RequestParam long billId ){
+    public void removeOrderWhenAdded(@PathVariable Long id, @RequestParam long billId ){
         Bill bill = restaurantService.getBillById(billId);
         restaurantService.removeOrderWhenAlreadyAdded(id,bill);
     }
     @DeleteMapping
-    public void removeOrder(@RequestParam String id){
+    public void removeOrder(@RequestParam Long id){
         orderRepository.remove(id);
     }
 
@@ -45,8 +45,8 @@ public class OrderController {
 
     }
     @GetMapping("/{id}")
-    public Order getById(@PathVariable Integer id){
-        return orderRepository.load(String.valueOf(id));
+    public Order getById(@PathVariable Long id){
+        return orderRepository.load(id);
     }
 
     @GetMapping("/billId={id}")

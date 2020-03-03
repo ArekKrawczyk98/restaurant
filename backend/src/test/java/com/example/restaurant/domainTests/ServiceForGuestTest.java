@@ -35,7 +35,7 @@ public class ServiceForGuestTest {
         GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(1L,Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
 
         restaurantService.addOrder(newOrder, guestBill);
 
@@ -50,7 +50,7 @@ public class ServiceForGuestTest {
         GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(1L,Collections.singletonList(new Product(1,"Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
 
         restaurantService.addOrder(newOrder, guestBill);
 
@@ -68,7 +68,7 @@ public class ServiceForGuestTest {
         GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.OWNER);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(1L,Collections.singletonList(new Product(1,"Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
 
         restaurantService.addOrder(newOrder, guestBill);
 
@@ -87,7 +87,7 @@ public class ServiceForGuestTest {
         GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.EMPLOYEE);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(1L,Collections.singletonList(new Product(1,"Dinner nr 1",25.0,ProductCategory.MAIN_COURSES)));
 
         restaurantService.addOrder(newOrder, guestBill);
 
@@ -103,7 +103,7 @@ public class ServiceForGuestTest {
         Integer table = 1;
         GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
-        final String orderId = UUID.randomUUID().toString();
+        final Long orderId = 1L;
 
 
         final Order newOrder = new Order(orderId,Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
@@ -128,7 +128,7 @@ public class ServiceForGuestTest {
         GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(1L,Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
 
         List<Product>  barProducts= newOrder.returnBarProducts();
 
@@ -146,7 +146,7 @@ public class ServiceForGuestTest {
         GuestBill guestBill = GuestBill.from(1L,"Dr Sara",0.0,new Date(),table, GuestPosition.GUEST);
 
 
-        final Order newOrder = new Order(UUID.randomUUID().toString(),Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
+        final Order newOrder = new Order(1L,Collections.singletonList(new Product(1,"Dinner nr 1",25.0, ProductCategory.MAIN_COURSES)));
 
         List<Product>  kitchenProducts= newOrder.returnKitchenProducts();
 
@@ -226,7 +226,7 @@ public class ServiceForGuestTest {
         List<Product> list = Arrays.asList(
                 new Product(1,"name1",25.0,ProductCategory.COLD_DRINKS),
                 new Product(2,"name2",30.0,ProductCategory.MAIN_COURSES));
-        final Order order = new Order("1",list);
+        final Order order = new Order(1L,list);
 
         Bill bill = new Bill(1L,0.0,new Date(),5);
 

@@ -16,8 +16,8 @@ public interface OrderRepositorySpringData extends JpaRepository<OrderEntity,Int
     @Query(nativeQuery = true, value = "insert into orders_products values (:orderId,:productId);")
     void saveToJoinTable(@Param("orderId") Integer orderId, @Param("productId") Integer id1);
 
-    @Query(nativeQuery = true, value = "select * from orders where bill_id=:orderId")
-    List<OrderEntity>getAllOrdersForBillId(@Param("orderId")Integer orderId);
+    @Query(nativeQuery = true, value = "select * from orders where bill_id=:billId")
+    List<OrderEntity>getAllOrdersForBillId(@Param("billId")Integer billId);
 
     @Transactional
     @Modifying

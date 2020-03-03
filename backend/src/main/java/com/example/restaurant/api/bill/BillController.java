@@ -37,13 +37,13 @@ public class BillController {
 
     @PostMapping
     public Bill addBill(@RequestBody Bill bill){
-        if (restaurantService.addBill(bill)){
-            return billRepository.loadById(billRepository.getIdByTableNumber(bill.getTable()));
-        }
-        else
-        {
-            return null;
-        }
+      Long id = restaurantService.addBill(bill);
+      if (id!= null){
+          return new Bill(id    ,bill.getToPay(),bill.getDate(),bill.getTable());
+      }
+      else {
+          return null;
+      }
 
     }
 
@@ -72,14 +72,10 @@ public class BillController {
 
     }
     @PostMapping("/split")
-    public void splitBill(@RequestBody TableBill bill, @RequestBody List<Product> products){
-        boolean isSuccessful = restaurantService.splitBill(bill,products);
-
-        if (isSuccessful){
-
-        }
-        else {
-            throw new IllegalStateException("ERROR");
+    public void splitBill(@RequestBody SplitBillDTO splitBillDTO){
+        boolean isSuccessful = restaurantService.splitBill(splitBillDTO.getBill(),splitBillDTO.getProducts());
+        if(!isSuccessful){
+            throw new IllegalStateException("Cannot split the bill");
         }
     }
 

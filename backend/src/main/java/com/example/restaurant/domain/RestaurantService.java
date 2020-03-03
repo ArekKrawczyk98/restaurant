@@ -12,8 +12,10 @@ import com.example.restaurant.domain.tableBill.TableBill;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -56,7 +58,7 @@ public class RestaurantService {
 
     public void addOrder(Order order, Bill bill){
         order.setStatus(OrderStatus.ACCEPTED);
-        orderRepository.add(order, Math.toIntExact(bill.getId()));
+        orderRepository.add(order, bill.getId());
         bill.addToPay(order);
         billRepository.update(bill.getId(),bill);
         sendOrders(order);
@@ -65,7 +67,7 @@ public class RestaurantService {
 
 
 
-    public void removeOrderWhenAlreadyAdded(String id, Bill bill) {
+    public void removeOrderWhenAlreadyAdded(Long id, Bill bill) {
 
         Order order = orderRepository.load(id);
 
@@ -90,9 +92,8 @@ public class RestaurantService {
 
     }
 
-    public boolean addBill(Bill bill){
-        Long id = billRepository.add(bill);
-        return id != 0L;
+    public Long addBill(Bill bill){
+        return billRepository.add(bill);
 
     }
 
@@ -129,6 +130,17 @@ public class RestaurantService {
         Double newBillValue = list.stream().mapToDouble(Product::getCost).sum();
         Bill newBill = bill.splitTableBill(newBillValue);
         Long id = billRepository.add(newBill);
+        Order order = new Order((long) (orderRepository.loadAll().size()+1),list);
+        orderRepository.add(order, id);
+        List<Order> orders = orderRepository.getAllOrdersForBillId(bill.getId());
+        List<Product> products = new LinkedList<>();
+        for (Order x: orders) {
+             products.addAll(x.getProducts());
+
+        }
+        products.removeAll(list);
+        orderRepository.removeAllOrdersByBillId(bill.getId());
+        orderRepository.add(new Order((long) (orders.size()+1),products),bill.getId());
 
         return billRepository.loadById(id) != null;
 
