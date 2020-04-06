@@ -130,13 +130,15 @@ export class BillsComponent implements OnInit {
 
 }
 
-  addProductToSplitList (product: Product ) {
-    if (!this.productsToBeAddedToAnotherBill.includes(product)){
-      this.productsToBeAddedToAnotherBill.push(product);
-    }
-    else {
+  addProductToSplitList (orderId:number,product: Product ) {
 
-    }
+      this.productsToBeAddedToAnotherBill.push(product);
+      const order = this.ordersForSelectedBill[orderId];
+      for(let i=0; i<order.products.length; i++){
+        if (order.products[i]==product){
+          order.products.splice(i,1);
+        }
+      }
 
   }
 }

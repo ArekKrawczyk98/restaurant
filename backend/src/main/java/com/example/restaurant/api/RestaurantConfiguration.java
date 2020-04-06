@@ -16,7 +16,9 @@ import com.example.restaurant.domain.kitchen.KitchenService;
 import com.example.restaurant.domain.order.OrderRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 
 @Configuration
@@ -66,5 +68,8 @@ public class RestaurantConfiguration {
     }
 
 
+    }
 
-}
+
+
+
